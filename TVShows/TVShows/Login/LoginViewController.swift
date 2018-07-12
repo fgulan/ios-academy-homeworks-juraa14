@@ -14,12 +14,19 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var checkBox: UIButton!
+    
+    var checked = UIImage(named: "ic-checkbox-filled")
+    var unchecked = UIImage(named: "ic-checkbox-empty")
+    
+    var isCheckBoxClicked:Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         usernameTextField.setBottomBorder()
         passwordTextField.setBottomBorder()
+        checkBox.setImage(unchecked, for: UIControlState.normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +43,19 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func CheckBoxImageChange(_ sender: Any) {
+        
+        if isCheckBoxClicked == true{
+            isCheckBoxClicked = false
+            checkBox.setImage(unchecked, for: UIControlState.normal)
+        }
+        else{
+            isCheckBoxClicked = true
+            checkBox.setImage(checked, for: UIControlState.normal)
+        }
+    }
+    
     
 }
 

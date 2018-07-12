@@ -35,9 +35,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4d-CA-5bb">
+                                <rect key="frame" x="10" y="344" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="QP4-75-5Fx"/>
+                                    <constraint firstAttribute="width" constant="24" id="q8x-zA-Hcg"/>
+                                </constraints>
+                                <state key="normal" image="ic-checkbox-empty"/>
+                                <state key="highlighted" image="ic-checkbox-filled"/>
+                                <connections>
+                                    <action selector="CheckBoxImageChange:" destination="kzv-Q0-wTM" eventType="touchUpInside" id="75O-6n-VXx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="M4d-CA-5bb" firstAttribute="leading" secondItem="D9V-It-Qcw" secondAttribute="leading" constant="10" id="3gw-ge-ieC"/>
                             <constraint firstItem="1Hj-uh-bDp" firstAttribute="centerX" secondItem="nRA-jd-PJc" secondAttribute="centerX" id="Hk2-by-KIE"/>
                             <constraint firstItem="1Hj-uh-bDp" firstAttribute="top" secondItem="HrM-cv-gYC" secondAttribute="bottom" constant="30" id="ODw-iI-vub"/>
                             <constraint firstItem="D9V-It-Qcw" firstAttribute="trailing" secondItem="HrM-cv-gYC" secondAttribute="trailing" constant="10" id="OS1-8j-f7B"/>
@@ -46,12 +59,14 @@
                             <constraint firstItem="HrM-cv-gYC" firstAttribute="centerX" secondItem="nRA-jd-PJc" secondAttribute="centerX" id="U0m-4B-xra"/>
                             <constraint firstItem="1Hj-uh-bDp" firstAttribute="leading" secondItem="D9V-It-Qcw" secondAttribute="leading" constant="10" id="VYn-ff-YCO"/>
                             <constraint firstItem="D9V-It-Qcw" firstAttribute="trailing" secondItem="1Hj-uh-bDp" secondAttribute="trailing" constant="10" id="iht-cD-AEr"/>
+                            <constraint firstItem="M4d-CA-5bb" firstAttribute="top" secondItem="1Hj-uh-bDp" secondAttribute="bottom" constant="20" id="lLj-QS-HnE"/>
                             <constraint firstItem="HrM-cv-gYC" firstAttribute="top" secondItem="DWL-vU-pSD" secondAttribute="bottom" constant="100" id="w0g-sb-Dc6"/>
                             <constraint firstItem="DWL-vU-pSD" firstAttribute="centerX" secondItem="nRA-jd-PJc" secondAttribute="centerX" id="wyI-0F-BhS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D9V-It-Qcw"/>
                     </view>
                     <connections>
+                        <outlet property="checkBox" destination="M4d-CA-5bb" id="C4C-ZX-ZLQ"/>
                         <outlet property="passwordTextField" destination="1Hj-uh-bDp" id="PXW-o8-K5C"/>
                         <outlet property="usernameTextField" destination="HrM-cv-gYC" id="aBx-ZC-nuS"/>
                     </connections>
@@ -62,6 +77,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic-checkbox-empty" width="24" height="24"/>
+        <image name="ic-checkbox-filled" width="24" height="24"/>
         <image name="login-logo" width="75" height="80"/>
     </resources>
 </document>
