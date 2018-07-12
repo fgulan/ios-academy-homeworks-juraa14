@@ -10,9 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    // MARK: - Private -
     var numberOfTaps: Int = 0
     var countDownTimer: Timer!
     var seconds = 3
+    
+    @IBOutlet var LabelOutlet: UILabel!
+    @IBOutlet var ActivityIndicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +61,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet var LabelOutlet: UILabel!
-    @IBOutlet var ActivityIndicatorView: UIActivityIndicatorView!
+    
     
     
 }
