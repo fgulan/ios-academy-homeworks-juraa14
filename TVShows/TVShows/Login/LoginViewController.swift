@@ -9,32 +9,22 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
-    var numberOfTaps: Int = 0
-    var countDownTimer: Timer!
-    var seconds = 3
+    
+    // MARK: - Private -
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ActivityIndicatorView.startAnimating()
-        countDownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-        
         // Do any additional setup after loading the view.
+        usernameTextField.setBottomBorder()
+        passwordTextField.setBottomBorder()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @objc func updateTime(){
-        if seconds != 0 {
-            seconds -= 1
-        }
-        else{
-            self.ActivityIndicatorView.stopAnimating()
-            countDownTimer.invalidate()
-        }
     }
 
     /*
@@ -46,18 +36,15 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func TapButtonAction(_ sender: Any) {
-        numberOfTaps += 1
-        self.LabelOutlet.text = String(numberOfTaps)
-        if self.ActivityIndicatorView.isAnimating {
-            self.ActivityIndicatorView.stopAnimating()
-        }
-        else{
-            self.ActivityIndicatorView.startAnimating()
-        }
+    
+}
+
+extension UITextField{
+    
+    func setBottomBorder(){
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
     }
-    
-    @IBOutlet weak var LabelOutlet: UILabel!
-    @IBOutlet weak var ActivityIndicatorView: UIActivityIndicatorView!
-    
 }
