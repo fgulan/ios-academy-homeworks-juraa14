@@ -57,7 +57,8 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var LabelOutlet: UILabel!
-    @IBOutlet weak var ActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet var LabelOutlet: UILabel!
+    @IBOutlet var ActivityIndicatorView: UIActivityIndicatorView!
+    
     
 }
