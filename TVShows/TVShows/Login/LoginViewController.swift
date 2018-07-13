@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var checkBox: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
     
     var checked = UIImage(named: "ic-checkbox-filled")
     var unchecked = UIImage(named: "ic-checkbox-empty")
@@ -27,6 +28,7 @@ class LoginViewController: UIViewController {
         usernameTextField.setBottomBorder()
         passwordTextField.setBottomBorder()
         checkBox.setImage(unchecked, for: UIControlState.normal)
+        loginButton.roundedButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +59,14 @@ class LoginViewController: UIViewController {
     }
     
     
+}
+
+extension UIButton{
+    
+    func roundedButton(){
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+    }
 }
 
 extension UITextField{
