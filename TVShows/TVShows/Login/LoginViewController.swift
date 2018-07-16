@@ -58,6 +58,18 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func LoginButtonAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        navigationController?.pushViewController(homeViewController, animated: true)
+    }
+    
+    
+    @IBAction func CreateAccountButtonAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        navigationController?.pushViewController(homeViewController, animated: true)
+    }
     
 }
 
@@ -78,3 +90,5 @@ extension UITextField{
         self.layer.shadowRadius = 0.0
     }
 }
+
+
