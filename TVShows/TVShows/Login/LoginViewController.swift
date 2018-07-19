@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Alamofire
+import SVProgressHUD
+import CodableAlamofire
+
 
 class LoginViewController: UIViewController {
     
@@ -21,6 +25,23 @@ class LoginViewController: UIViewController {
     var unchecked = UIImage(named: "ic-checkbox-empty")
     
     var isCheckBoxClicked:Bool!
+    
+    private var user: User? = nil
+    private var loginToken: LoginData? = nil
+    
+    struct User: Codable {
+        let email: String
+        let type: String
+        let id: String
+        enum CodingKeys: String, CodingKey {
+            case email
+            case type
+            case id = "_id"
+        }
+    }
+    struct LoginData: Codable {
+        let token: String
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,16 +80,84 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func LoginButtonAction(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-        navigationController?.pushViewController(homeViewController, animated: true)
+        if let email = usernameTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty{
+            LoginAPICall(email: email, password: password)
+        }
+        
+        //let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        //let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        //navigationController?.pushViewController(homeViewController, animated: true)
     }
     
     
     @IBAction func CreateAccountButtonAction(_ sender: Any) {
+        
+        if let email = usernameTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty {
+            
+            SVProgressHUD.show()
+            
+            let parameters: [String: String] = [
+                "email": email,
+                "password": password
+            ]
+            Alamofire
+                .request("https://api.infinum.academy/api/users",
+                         method: .post,
+                         parameters: parameters,
+                         encoding: JSONEncoding.default)
+                .validate()
+                .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+                    (response: DataResponse<User>) in
+            
+            
+                        SVProgressHUD.dismiss()
+            
+                        switch response.result {
+                            case .success(let user):
+                                    self.user = user
+                                    self.LoginAPICall(email: email, password: password)
+                            case .failure(let error):
+                                    print("API failure: \(error)")
+                        }
+            }
+        }
+        
+        
+        //let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        //let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        //navigationController?.pushViewController(homeViewController, animated: true)
+    }
+    
+    func LoginAPICall(email: String, password: String){
+        SVProgressHUD.show()
+        
+        let parameters: [String: String] = [
+            "email": email,
+            "password": password
+        ]
+        Alamofire
+            .request("https://api.infinum.academy/api/users/sessions",
+                     method: .post,
+                     parameters: parameters,
+                     encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+                (response: DataResponse<LoginData>) in
+               
+                SVProgressHUD.dismiss()
+                
+                switch response.result {
+                case .success(let token):
+                    self.loginToken = token
+                case .failure(let error):
+                    print("API failure: \(error)")
+                }
+        }
+        
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
         navigationController?.pushViewController(homeViewController, animated: true)
+        
     }
     
 }
