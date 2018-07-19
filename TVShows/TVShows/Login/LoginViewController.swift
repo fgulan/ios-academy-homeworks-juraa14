@@ -43,6 +43,9 @@ class LoginViewController: UIViewController {
         let token: String
     }
     
+    @IBOutlet var LabelOutlet: UILabel!
+    @IBOutlet var ActivityIndicatorView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
