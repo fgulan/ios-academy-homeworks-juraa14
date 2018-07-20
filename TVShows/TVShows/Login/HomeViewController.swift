@@ -10,6 +10,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    var loginUser: LoginData?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

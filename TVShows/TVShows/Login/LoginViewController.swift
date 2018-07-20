@@ -135,14 +135,17 @@ class LoginViewController: UIViewController {
                 switch response.result {
                 case .success(let token):
                     self.loginToken = token
+                    let storyboard = UIStoryboard(name: "Login", bundle: nil)
+                    let homeViewController: HomeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                    self.navigationController?.pushViewController(homeViewController, animated: true)
+                    homeViewController.loginUser = self.loginToken
                 case .failure(let error):
-                    print("API failure: \(error)")
+                    let alertController = UIAlertController(title:"Alert", message: error as? String, preferredStyle: .alert)
+                    self.present(alertController, animated: true, completion: nil)
                 }
         }
         
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-        navigationController?.pushViewController(homeViewController, animated: true)
+        
         
     }
     
