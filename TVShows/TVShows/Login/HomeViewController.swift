@@ -7,14 +7,43 @@
 //
 
 import UIKit
+import SVProgressHUD
+import Alamofire
+import CodableAlamofire
 
 class HomeViewController: UIViewController {
 
     var loginUser: LoginData?
+    private var listOfShows = [Show]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        SVProgressHUD.show()
+        
+        let token: String = (loginUser?.token)!
+        
+        let headers = ["Authorization": token]
+        Alamofire
+            .request("https://api.infinum.academy/api/shows",
+                     method: .get,
+                     encoding: JSONEncoding.default,
+                     headers: headers)
+            .validate()
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+                (response: DataResponse<[Show]>) in
+                
+                SVProgressHUD.dismiss()
+                
+                switch response.result {
+                case .success(let shows):
+                    self.listOfShows = shows
+                case .failure(let error):
+                    print(error)
+                }
+        }
+
+        
         // Do any additional setup after loading the view.
     }
 

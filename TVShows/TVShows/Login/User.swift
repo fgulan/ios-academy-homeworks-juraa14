@@ -21,3 +21,14 @@ struct User: Codable {
 struct LoginData: Codable {
     let token: String
 }
+
+struct Show: Codable{
+    let title: String
+    let id: String
+    let likesCount: Int?
+    enum CodingKeys: String, CodingKey{
+        case title
+        case id = "_id"
+        case likesCount
+    }
+}
