@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C0B724A20F7592200DCFAB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B724820F7592200DCFAB5 /* LoginViewController.swift */; };
 		5C0B724B20F7592200DCFAB5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0B724920F7592200DCFAB5 /* Login.storyboard */; };
+		5C140308210385B300C871DF /* HomeViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C140307210385B300C871DF /* HomeViewControllerCell.swift */; };
 		5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9056192100CB4F003A320B /* UITextField+Border.swift */; };
 		5C90561C2100CCAC003A320B /* UIButton+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */; };
 		5C90561E2100CD7D003A320B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561D2100CD7D003A320B /* User.swift */; };
@@ -24,6 +25,7 @@
 		3AA3E00EF87DA7BFCD359E0C /* Pods_TVShows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TVShows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0B724820F7592200DCFAB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5C0B724920F7592200DCFAB5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		5C140307210385B300C871DF /* HomeViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerCell.swift; sourceTree = "<group>"; };
 		5C9056192100CB4F003A320B /* UITextField+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Border.swift"; sourceTree = "<group>"; };
 		5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Rounded.swift"; sourceTree = "<group>"; };
 		5C90561D2100CD7D003A320B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				5C9056192100CB4F003A320B /* UITextField+Border.swift */,
 				5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */,
 				5C90561D2100CD7D003A320B /* User.swift */,
+				5C140307210385B300C871DF /* HomeViewControllerCell.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				5C0B724A20F7592200DCFAB5 /* LoginViewController.swift in Sources */,
 				5C90561C2100CCAC003A320B /* UIButton+Rounded.swift in Sources */,
 				5C90561E2100CD7D003A320B /* User.swift in Sources */,
+				5C140308210385B300C871DF /* HomeViewControllerCell.swift in Sources */,
 				5CECFDD320EE6F4400E3EA49 /* AppDelegate.swift in Sources */,
 				5CBACE8320FC9E28005D9420 /* HomeViewController.swift in Sources */,
 				5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */,

@@ -16,9 +16,33 @@ class HomeViewController: UIViewController {
     var loginUser: LoginData?
     private var listOfShows = [Show]()
     
+    
+    @IBOutlet weak var homeTableView: UITableView!{
+        didSet{
+            homeTableView.dataSource = self
+            homeTableView.delegate = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Shows"
+        
+        APICall()
+        //print(listOfShows.count)
+        homeTableView.reloadData()
+        
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    fileprivate func APICall() {
         SVProgressHUD.show()
         
         let token: String = (loginUser?.token)!
@@ -38,21 +62,16 @@ class HomeViewController: UIViewController {
                 switch response.result {
                 case .success(let shows):
                     self.listOfShows = shows
+                    self.homeTableView.reloadData()
+                    //print(self.listOfShows.count)
                 case .failure(let error):
                     print(error)
                 }
         }
-
         
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       // print(listOfShows.count)
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -63,4 +82,37 @@ class HomeViewController: UIViewController {
     }
     */
 
+}
+
+extension HomeViewController: UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print(listOfShows.count)
+        
+        return listOfShows.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = indexPath.row
+        
+        let cell: HomeViewControllerCell = tableView.dequeueReusableCell(withIdentifier: "HomeViewControllerCell",
+                                                                         for: indexPath) as! HomeViewControllerCell
+        
+        let item: HomeViewCellItem = HomeViewCellItem(
+            title: listOfShows[row].title
+        )
+        
+        cell.configureCell(with: item)
+        
+        return cell
+    }
+    
+}
+
+extension HomeViewController: UITableViewDelegate{
+    
 }
