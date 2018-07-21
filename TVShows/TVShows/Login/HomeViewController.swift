@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "Shows"
-        
+        navigationItem.setHidesBackButton(true, animated: true)
         APICall()
         //print(listOfShows.count)
         homeTableView.reloadData()
