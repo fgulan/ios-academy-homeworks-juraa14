@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -133,6 +134,7 @@
                         <outlet property="loginButton" destination="iwy-8v-wS3" id="bNq-6C-fg1"/>
                         <outlet property="passwordTextField" destination="1Hj-uh-bDp" id="PXW-o8-K5C"/>
                         <outlet property="usernameTextField" destination="HrM-cv-gYC" id="aBx-ZC-nuS"/>
+                        <segue destination="Az8-VU-1fy" kind="show" identifier="LoginToHomeSegue" id="cc1-ai-gZC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x1C-AK-sq4" userLabel="First Responder" sceneMemberID="firstResponder"/>

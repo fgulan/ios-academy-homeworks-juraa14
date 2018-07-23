@@ -62,13 +62,30 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OPb-sE-b1A"/>
                     </view>
+                    <navigationItem key="navigationItem" id="icl-Zv-847"/>
                     <connections>
                         <outlet property="homeTableView" destination="9Iv-J9-Me5" id="VKP-gv-szw"/>
+                        <segue destination="qSh-E9-RNM" kind="show" identifier="HomeToShowDetailsSegue" id="MBR-rq-T6m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZv-CF-G7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="109.59999999999999" y="156.97151424287858"/>
+            <point key="canvasLocation" x="1048.8" y="156.97151424287858"/>
+        </scene>
+        <!--Show Details View Controller-->
+        <scene sceneID="mFZ-ug-rBT">
+            <objects>
+                <viewController storyboardIdentifier="ShowDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qSh-E9-RNM" customClass="ShowDetailsViewController" customModule="TVShows" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lj4-tb-rKp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="tY2-kw-raE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nk6-qL-Deg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1949" y="155"/>
         </scene>
     </scenes>
 </document>
