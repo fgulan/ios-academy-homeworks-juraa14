@@ -116,8 +116,8 @@ extension HomeViewController: UITableViewDataSource{
         let showDetailsViewController: ShowDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
         self.navigationController?.pushViewController(showDetailsViewController, animated: true)
         showDetailsViewController.showID = listOfShows[indexPath.row].id
-        showDetailsViewController.token = loginUser?.token
-        print(listOfShows[indexPath.row], loginUser!)
+        showDetailsViewController.token = (loginUser?.token)!
+       // print(listOfShows[indexPath.row], loginUser!)
     }
 
     
