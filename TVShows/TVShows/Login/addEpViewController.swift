@@ -10,8 +10,21 @@ import UIKit
 
 class addEpViewController: UIViewController {
 
+    
+    @IBOutlet weak var epTitleTextField: UITextField!
+    @IBOutlet weak var epNumberTextField: UITextField!
+    @IBOutlet weak var seasonNumberTextField: UITextField!
+    @IBOutlet weak var epDescriptionTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        epTitleTextField.setBottomBorder()
+        epNumberTextField.setBottomBorder()
+        seasonNumberTextField.setBottomBorder()
+        epDescriptionTextField.setBottomBorder()
+        
         navigationItem.title = "Add episode"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                            style: .plain,
