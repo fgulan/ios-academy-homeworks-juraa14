@@ -45,6 +45,8 @@ class DescriptionTableViewCell: UITableViewCell {
     func configureCell(with item: descriptionCellItems){
         showTitle.text = item.title
         showDescription.text = item.description
+        showDescription.sizeToFit()
+        showDescription.adjustsFontSizeToFitWidth = true
         numberOfEpisodes.text = String(item.numberOfEpisodes)
         if let url = NSURL(string: item.imageUrl), let data = NSData(contentsOf: url as URL){
             showImage.image = UIImage(data: data as Data)

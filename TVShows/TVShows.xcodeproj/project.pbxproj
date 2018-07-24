@@ -16,6 +16,7 @@
 		5C98731F2105ED70009F4566 /* ShowDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */; };
 		5C98732121061180009F4566 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98732021061180009F4566 /* DescriptionTableViewCell.swift */; };
 		5C98732321061192009F4566 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98732221061192009F4566 /* EpisodeTableViewCell.swift */; };
+		5CAAFC5D2107A6F500630EED /* addEpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAAFC5C2107A6F500630EED /* addEpViewController.swift */; };
 		5CBACE8120FC9DBB005D9420 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CBACE8020FC9DBB005D9420 /* Home.storyboard */; };
 		5CBACE8320FC9E28005D9420 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBACE8220FC9E28005D9420 /* HomeViewController.swift */; };
 		5CECFDD320EE6F4400E3EA49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECFDD220EE6F4400E3EA49 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewController.swift; sourceTree = "<group>"; };
 		5C98732021061180009F4566 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		5C98732221061192009F4566 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
+		5CAAFC5C2107A6F500630EED /* addEpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addEpViewController.swift; sourceTree = "<group>"; };
 		5CBACE8020FC9DBB005D9420 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		5CBACE8220FC9E28005D9420 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5CECFDCF20EE6F4400E3EA49 /* TVShows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVShows.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 				5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */,
 				5C98732021061180009F4566 /* DescriptionTableViewCell.swift */,
 				5C98732221061192009F4566 /* EpisodeTableViewCell.swift */,
+				5CAAFC5C2107A6F500630EED /* addEpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				5CECFDD320EE6F4400E3EA49 /* AppDelegate.swift in Sources */,
 				5CBACE8320FC9E28005D9420 /* HomeViewController.swift in Sources */,
 				5C98732121061180009F4566 /* DescriptionTableViewCell.swift in Sources */,
+				5CAAFC5D2107A6F500630EED /* addEpViewController.swift in Sources */,
 				5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,6 +18,8 @@ class EpisodeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var episodeName: UILabel!
     @IBOutlet weak var episodeNumber: UILabel!
+    @IBOutlet weak var arrow: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +41,7 @@ class EpisodeTableViewCell: UITableViewCell {
     func configureCell(with item: episodeCellItems){
         episodeName.text = item.episodeName
         episodeNumber.text = item.episodeNumber
+        arrow.isEnabled = false
     }
     
 }

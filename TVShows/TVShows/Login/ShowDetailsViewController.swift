@@ -28,12 +28,20 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
         getDetailsAPICall()
         
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
     
+    @IBAction func backButton(_ sender: Any) {
+            navigationController?.popViewController(animated: true)
+    }
     
     func getDetailsAPICall(){
         SVProgressHUD.show()
@@ -177,6 +185,7 @@ extension ShowDetailsViewController: UITableViewDataSource{
             cell.configureCell(with: item)
             return cell
         }
+        
         
         
     }
