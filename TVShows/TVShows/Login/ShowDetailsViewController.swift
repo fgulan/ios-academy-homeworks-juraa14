@@ -178,7 +178,10 @@ extension ShowDetailsViewController: UITableViewDataSource{
                 description: (showDetails!.description),
                 numberOfEpisodes: listOfEpisodes.count
             )
-            
+            let imageUrl = (showDetails!.imageUrl)
+            let url = URL(string: "https://api.infinum.academy" + imageUrl)
+            cell.showImage.kf.setImage(with: url)
+
             cell.configureCell(with: item)
             return cell
         } else{

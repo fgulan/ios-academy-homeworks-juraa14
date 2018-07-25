@@ -18,6 +18,7 @@ struct descriptionCellItems{
 class DescriptionTableViewCell: UITableViewCell {
 
     
+    
     @IBOutlet weak var showImage: UIImageView!
     @IBOutlet weak var showTitle: UILabel!
     @IBOutlet weak var showDescription: UILabel!
@@ -48,9 +49,7 @@ class DescriptionTableViewCell: UITableViewCell {
         showDescription.sizeToFit()
         showDescription.adjustsFontSizeToFitWidth = true
         numberOfEpisodes.text = String(item.numberOfEpisodes)
-        if let url = NSURL(string: item.imageUrl), let data = NSData(contentsOf: url as URL){
-            showImage.image = UIImage(data: data as Data)
-        }
+        
     }
     
 }

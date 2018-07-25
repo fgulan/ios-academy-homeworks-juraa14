@@ -101,6 +101,9 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Azq-eZ-lpj">
                                                     <rect key="frame" x="15" y="11" width="345" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="H0I-VT-xaq"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZF-Xa-rbo">
                                                     <rect key="frame" x="65" y="203" width="48" height="24"/>
@@ -162,7 +165,7 @@
                                         <connections>
                                             <outlet property="numberOfEpisodes" destination="sh0-Z4-WhA" id="KKk-mv-fcq"/>
                                             <outlet property="showDescription" destination="nUB-G5-GLS" id="Q4R-uK-BoE"/>
-                                            <outlet property="showImage" destination="Azq-eZ-lpj" id="Ua2-2n-W9j"/>
+                                            <outlet property="showImage" destination="Azq-eZ-lpj" id="iYg-5C-45m"/>
                                             <outlet property="showTitle" destination="4ZF-Xa-rbo" id="YDs-Am-m6s"/>
                                         </connections>
                                     </tableViewCell>
