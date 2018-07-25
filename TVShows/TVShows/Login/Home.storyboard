@@ -37,7 +37,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vq1-Dw-Sld">
-                                                    <rect key="frame" x="166.5" y="23.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="166.5" y="11" width="42" height="46"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -46,9 +46,11 @@
                                             <constraints>
                                                 <constraint firstItem="YeV-ZR-9jc" firstAttribute="top" secondItem="0c6-5Y-yoz" secondAttribute="top" constant="4" id="9er-CB-UVY"/>
                                                 <constraint firstItem="YeV-ZR-9jc" firstAttribute="leading" secondItem="0c6-5Y-yoz" secondAttribute="leading" constant="15" id="B3n-uZ-4Zi"/>
+                                                <constraint firstItem="Vq1-Dw-Sld" firstAttribute="centerX" secondItem="0c6-5Y-yoz" secondAttribute="centerX" id="BvG-LH-3DN"/>
                                                 <constraint firstItem="Vq1-Dw-Sld" firstAttribute="centerY" secondItem="0c6-5Y-yoz" secondAttribute="centerY" id="MzV-X3-UyG"/>
+                                                <constraint firstItem="Vq1-Dw-Sld" firstAttribute="top" secondItem="0c6-5Y-yoz" secondAttribute="topMargin" id="Qh7-oP-nL2"/>
                                                 <constraint firstAttribute="bottom" secondItem="YeV-ZR-9jc" secondAttribute="bottom" constant="4.5" id="dWZ-Pb-0eE"/>
-                                                <constraint firstItem="Vq1-Dw-Sld" firstAttribute="centerX" secondItem="0c6-5Y-yoz" secondAttribute="centerX" id="qwy-59-WFq"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Vq1-Dw-Sld" secondAttribute="bottom" id="kgz-PV-x6f"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
