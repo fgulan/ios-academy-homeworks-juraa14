@@ -29,7 +29,10 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     @IBAction func addShowButton(_ sender: Any) {
         let addEpVC = storyboard?.instantiateViewController(withIdentifier: "addEpViewController") as! addEpViewController
         
-        present(addEpVC, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: addEpVC)
+        present(navController, animated: true, completion: nil)
+        addEpVC.token = self.token
+        addEpVC.showID = self.showID
     }
     
     override func viewDidLoad() {
