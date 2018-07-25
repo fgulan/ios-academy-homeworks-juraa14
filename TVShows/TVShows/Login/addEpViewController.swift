@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Alamofire
+import CodableAlamofire
+import SVProgressHUD
 
 class addEpViewController: UIViewController {
 
+    var token: String?
+    var showID: String?
     
     @IBOutlet weak var epTitleTextField: UITextField!
     @IBOutlet weak var epNumberTextField: UITextField!
@@ -38,7 +43,50 @@ class addEpViewController: UIViewController {
     }
     
     @objc func didSelectAdd(){
-        print("hi")
+        if !(epTitleTextField.text?.isEmpty)!, !(epNumberTextField.text?.isEmpty)!, !(epDescriptionTextField.text?.isEmpty)!,
+            !(seasonNumberTextField.text?.isEmpty)!{
+            createEpisodeAPICall()
+        }
+    }
+    
+    func createEpisodeAPICall(){
+        SVProgressHUD.show()
+        
+        let parameters: [String: String] = [
+            "showId" : showID!,
+            "mediaId" : "",
+            "title" : epTitleTextField.text!,
+            "description" : epDescriptionTextField.text!,
+            "episodeNumber" : epNumberTextField.text!,
+            "season" : seasonNumberTextField.text!
+        ]
+        let token = (self.token)!
+        
+        let headers = ["Authorization": token]
+        
+        Alamofire
+            .request("https://api.infinum.academy/api/episodes",
+                     method: .post,
+                     parameters: parameters,
+                     encoding: JSONEncoding.default,
+                     headers: headers)
+            .validate()
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+                (response: DataResponse<newEpisode>) in
+                
+                
+                SVProgressHUD.dismiss()
+                
+                switch response.result {
+                case .success(let newEp):
+                    print(newEp)
+                    //self.delegate?.didAddEpisode(episode: newEp)
+                    //self.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    let alertController = UIAlertController(title:"Error adding episode", message: error as? String, preferredStyle: .alert)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+        }
     }
     
     @objc func didSelectCancel() {
