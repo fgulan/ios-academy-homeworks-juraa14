@@ -85,7 +85,7 @@ class addEpViewController: UIViewController {
                 
                 switch response.result {
                 case .success(let newEp):
-                    print(newEp)
+                    //print(newEp)
                     self.delegate?.didAddEpisode(title: newEp.title)
                     self.dismiss(animated: true, completion: nil)
                 case .failure(let error):
