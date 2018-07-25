@@ -106,7 +106,9 @@ extension HomeViewController: UITableViewDataSource{
         let item: HomeViewCellItem = HomeViewCellItem(
             title: listOfShows[row].title
         )
-        
+        let imageUrl = listOfShows[row].imageUrl
+        let url = URL(string: "https://api.infinum.academy" + imageUrl)
+        cell.showImage.kf.setImage(with: url)
         cell.configureCell(with: item)
         
         return cell
@@ -121,6 +123,9 @@ extension HomeViewController: UITableViewDataSource{
        // print(listOfShows[indexPath.row], loginUser!)
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
 }
 

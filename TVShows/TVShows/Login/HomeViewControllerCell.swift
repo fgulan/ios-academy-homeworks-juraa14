@@ -15,6 +15,7 @@ struct HomeViewCellItem{
 class HomeViewControllerCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var showImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
