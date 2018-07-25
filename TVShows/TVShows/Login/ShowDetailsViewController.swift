@@ -28,8 +28,8 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     
     @IBAction func addShowButton(_ sender: Any) {
         let addEpVC = storyboard?.instantiateViewController(withIdentifier: "addEpViewController") as! addEpViewController
-        
         let navController = UINavigationController(rootViewController: addEpVC)
+        addEpVC.delegate = self
         present(navController, animated: true, completion: nil)
         addEpVC.token = self.token
         addEpVC.showID = self.showID
@@ -202,4 +202,10 @@ extension ShowDetailsViewController: UITableViewDataSource{
     
 }
 
-
+extension ShowDetailsViewController: EpisodeAddedDelegate {
+    func didAddEpisode(title: String) {
+        tableView.reloadData()
+    }
+    
+    
+}

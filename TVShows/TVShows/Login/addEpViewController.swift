@@ -11,10 +11,16 @@ import Alamofire
 import CodableAlamofire
 import SVProgressHUD
 
+protocol EpisodeAddedDelegate: class {
+    func didAddEpisode(title: String)
+}
+
 class addEpViewController: UIViewController {
 
     var token: String?
     var showID: String?
+    
+    weak var delegate: EpisodeAddedDelegate?
     
     @IBOutlet weak var epTitleTextField: UITextField!
     @IBOutlet weak var epNumberTextField: UITextField!
@@ -80,9 +86,10 @@ class addEpViewController: UIViewController {
                 switch response.result {
                 case .success(let newEp):
                     print(newEp)
-                    //self.delegate?.didAddEpisode(episode: newEp)
-                    //self.dismiss(animated: true, completion: nil)
+                    self.delegate?.didAddEpisode(title: newEp.title)
+                    self.dismiss(animated: true, completion: nil)
                 case .failure(let error):
+                    print(error)
                     let alertController = UIAlertController(title:"Error adding episode", message: error as? String, preferredStyle: .alert)
                     self.present(alertController, animated: true, completion: nil)
                 }

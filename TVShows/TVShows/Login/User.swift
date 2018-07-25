@@ -88,7 +88,7 @@ struct EpisodeDetails: Codable{
 
 struct newEpisode: Codable{
     let showId: String
-    let mediaId: String
+    let mediaId: String?
     let title: String
     let description: String
     let episodeNumber: String
