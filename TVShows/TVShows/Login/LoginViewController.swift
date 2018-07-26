@@ -43,6 +43,12 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if let username = UserDefaults.standard.object(forKey: "username") as? String, let password = UserDefaults.standard.object(forKey: "password") as? String {
+            loginAPICall(email: username, password: password)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -67,6 +73,10 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginButtonAction(_ sender: UIButton) {
         if let email = usernameTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty{
+            if isCheckBoxClicked == true {
+                UserDefaults.standard.set(email, forKey: "username")
+                UserDefaults.standard.set(password, forKey: "password")
+            }
             loginAPICall(email: email, password: password)
         } else if (usernameTextField.text?.isEmpty)! || (passwordTextField.text?.isEmpty)! {
             let pulse1 = CASpringAnimation(keyPath: "transform.scale")
