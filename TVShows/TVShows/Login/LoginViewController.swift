@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         usernameTextField.setBottomBorder()
         passwordTextField.setBottomBorder()
-        checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: UIControlState.normal)
+        checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: .normal)
         loginButton.roundedButton()
     }
 
@@ -63,11 +63,11 @@ class LoginViewController: UIViewController {
         
         if isCheckBoxClicked == true{
             isCheckBoxClicked = false
-            checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: UIControlState.normal)
+            checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: .normal)
         }
         else{
             isCheckBoxClicked = true
-            checkBox.setImage(UIImage(named: "ic-checkbox-filled"), for: UIControlState.normal)
+            checkBox.setImage(UIImage(named: "ic-checkbox-filled"), for: .normal)
         }
     }
     

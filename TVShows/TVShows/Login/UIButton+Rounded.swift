@@ -12,8 +12,8 @@ import UIKit
 
 extension UIButton{
     
-    func roundedButton(){
-        layer.cornerRadius = 10
+    func roundedButton(radius: CGFloat = 10){
+        layer.cornerRadius = radius
         clipsToBounds = true
     }
 }

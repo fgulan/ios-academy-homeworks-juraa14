@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     
     
     @IBOutlet weak var homeTableView: UITableView!{
-        didSet{
+        didSet {
             homeTableView.dataSource = self
             homeTableView.delegate = self
         }
@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
                      headers: headers)
             .validate()
             .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
-                (response: DataResponse<[Show]>) in
+                (response: DataResponse<[Show]>)  in
                 
                 SVProgressHUD.dismiss()
                 
@@ -129,11 +129,13 @@ extension HomeViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let showDetailsViewController: ShowDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
-        self.navigationController?.pushViewController(showDetailsViewController, animated: true)
         showDetailsViewController.showID = listOfShows[indexPath.row].id
         showDetailsViewController.token = (loginUser?.token)!
+        self.navigationController?.pushViewController(showDetailsViewController, animated: true)
+        
        // print(listOfShows[indexPath.row], loginUser!)
     }
 

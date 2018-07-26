@@ -30,9 +30,10 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
         let addEpVC = storyboard?.instantiateViewController(withIdentifier: "addEpViewController") as! addEpViewController
         let navController = UINavigationController(rootViewController: addEpVC)
         addEpVC.delegate = self
-        present(navController, animated: true, completion: nil)
         addEpVC.token = self.token
         addEpVC.showID = self.showID
+        present(navController, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
@@ -158,9 +159,9 @@ extension ShowDetailsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if showDetails != nil{
+        if showDetails != nil {
             return 1 + detailedListOfEpisodes.count
-        } else{
+        } else {
             return 0
         }
     }

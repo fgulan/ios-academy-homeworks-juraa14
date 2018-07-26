@@ -11,8 +11,8 @@ import UIKit
 
 extension UITextField{
     
-    func setBottomBorder(){
-        layer.shadowColor = UIColor.lightGray.cgColor
+    func setBottomBorder(color: CGColor = UIColor.lightGray.cgColor){
+        layer.shadowColor = color
         layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         layer.shadowOpacity = 1.0
         layer.shadowRadius = 0.0
