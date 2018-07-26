@@ -73,7 +73,6 @@
                     <navigationItem key="navigationItem" id="icl-Zv-847"/>
                     <connections>
                         <outlet property="homeTableView" destination="9Iv-J9-Me5" id="VKP-gv-szw"/>
-                        <segue destination="qSh-E9-RNM" kind="show" identifier="HomeToShowDetailsSegue" id="MBR-rq-T6m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZv-CF-G7P" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -29,7 +29,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "Shows"
+        
         navigationItem.setHidesBackButton(true, animated: true)
+        
+        let logoutItem = UIBarButtonItem.init(image: UIImage(named: "ic-logout"),
+                                              style: .plain,
+                                              target: self,
+                                              action:
+            #selector(_logoutActionHandler))
+        navigationItem.leftBarButtonItem = logoutItem
+        
         APICall()
         //print(listOfShows.count)
         homeTableView.reloadData()
@@ -37,9 +46,14 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    @objc private func _logoutActionHandler() {
+        UserDefaults.standard.removeObject(forKey: "username")
+        UserDefaults.standard.removeObject(forKey: "password")
+        navigationController?.popViewController(animated: true)
     }
     
 
