@@ -73,15 +73,16 @@ class HomeViewController: UIViewController {
                 (response: DataResponse<[Show]>)  in
                 
                 SVProgressHUD.dismiss()
-                
+            { [weak self] in
                 switch response.result {
                 case .success(let shows):
-                    self.listOfShows = shows
-                    self.homeTableView.reloadData()
+                    self?.listOfShows = shows
+                    self?.homeTableView.reloadData()
                     //print(self.listOfShows.count)
                 case .failure(let error):
                     print(error)
                 }
+            }
         }
         
        // print(listOfShows.count)

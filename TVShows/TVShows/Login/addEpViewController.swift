@@ -82,17 +82,18 @@ class addEpViewController: UIViewController {
                 
                 
                 SVProgressHUD.dismiss()
-                
+                    {[weak self] in
                 switch response.result {
                 case .success(let newEp):
                     //print(newEp)
-                    self.delegate?.didAddEpisode(title: newEp.title)
-                    self.dismiss(animated: true, completion: nil)
+                    self?.delegate?.didAddEpisode(title: newEp.title)
+                    self?.dismiss(animated: true, completion: nil)
                 case .failure(let error):
                     print(error)
                     let alertController = UIAlertController(title:"Error adding episode", message: error as? String, preferredStyle: .alert)
-                    self.present(alertController, animated: true, completion: nil)
+                    self?.present(alertController, animated: true, completion: nil)
                 }
+            }
         }
     }
     

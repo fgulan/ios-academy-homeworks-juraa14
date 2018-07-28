@@ -119,14 +119,15 @@ class LoginViewController: UIViewController {
             
             
                         SVProgressHUD.dismiss()
-            
+                    { [weak self] in
                         switch response.result {
                             case .success(let user):
-                                    self.user = user
-                                    self.loginAPICall(email: email, password: password)
+                                    self?.user = user
+                                    self?.loginAPICall(email: email, password: password)
                             case .failure(let error):
                                     print("API failure: \(error)")
                         }
+                    }
             }
         }
         

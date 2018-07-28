@@ -69,15 +69,16 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                 (response: DataResponse<ShowDetails>) in
                 
                 SVProgressHUD.dismiss()
-                
+                    { [weak self] in
                 switch response.result {
                 case .success(let details):
-                    self.showDetails = details
+                    self?.showDetails = details
                     //print(self.showDetails!)
-                    self.getListOfEpisodesAPICall()
-                    self.tableView.reloadData()
+                    self?.getListOfEpisodesAPICall()
+                    self?.tableView.reloadData()
                 case .failure(let error):
                     print(error)
+                }
                 }
         }
     }
@@ -128,15 +129,16 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                 (response: DataResponse<EpisodeDetails>) in
                 
                 SVProgressHUD.dismiss()
-                
+                    {[weak self] in
                 switch response.result {
                 case .success(let episodeDetails):
-                    self.detailedListOfEpisodes.append(episodeDetails)
+                    self?.detailedListOfEpisodes.append(episodeDetails)
                     //print(self.detailedListOfEpisodes)
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
+            }
         }
     }
     
