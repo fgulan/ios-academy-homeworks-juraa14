@@ -15,21 +15,36 @@ protocol EpisodeAddedDelegate: class {
     func didAddEpisode(title: String)
 }
 
-class addEpViewController: UIViewController {
+class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var token: String?
     var showID: String?
     
+    let imagePicker = UIImagePickerController()
+    
     weak var delegate: EpisodeAddedDelegate?
     
+    @IBOutlet weak var episodeImage: UIImageView!
     @IBOutlet weak var epTitleTextField: UITextField!
     @IBOutlet weak var epNumberTextField: UITextField!
     @IBOutlet weak var seasonNumberTextField: UITextField!
     @IBOutlet weak var epDescriptionTextField: UITextField!
     
+    @IBAction func uploadImageButtonTapped(_ sender: Any) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+        if episodeImage.image != nil {
+            uploadImageOnAPI()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
         
         epTitleTextField.setBottomBorder()
         epNumberTextField.setBottomBorder()
@@ -51,16 +66,58 @@ class addEpViewController: UIViewController {
     @objc func didSelectAdd(){
         if !(epTitleTextField.text?.isEmpty)!, !(epNumberTextField.text?.isEmpty)!, !(epDescriptionTextField.text?.isEmpty)!,
             !(seasonNumberTextField.text?.isEmpty)!{
-            createEpisodeAPICall()
+             createEpisodeAPICall(mediaId: "")
         }
     }
     
-    func createEpisodeAPICall(){
+    func uploadImageOnAPI() {
+        
+        let token = self.token!
+        
+        let headers = ["Authorization": token]
+        //let someUIImage = UIImage(named: "splash-logo")!
+        let imageByteData = UIImagePNGRepresentation(episodeImage.image!)!
+        Alamofire
+            .upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(imageByteData,
+                                         withName: "file",
+                                         fileName: "image.png",
+                                         mimeType: "image/png")
+            }, to: "https://api.infinum.academy/api/media",
+               method: .post,
+               headers: headers)
+            { [weak self] result in
+                switch result {
+                case .success(let uploadRequest, _, _):
+                    self?.processUploadRequest(uploadRequest)
+                case .failure(let encodingError):
+                    print(encodingError)
+                } }
+    }
+                                         
+    
+    func processUploadRequest(_ uploadRequest: UploadRequest) {
+        uploadRequest
+            .responseDecodableObject(keyPath: "data") { (response:
+                DataResponse<Media>) in
+                    switch response.result {
+                        case .success(let media):
+                            print("DECODED: \(media)")
+                            print("Proceed to add episode call...")
+                            self.createEpisodeAPICall(mediaId: media.mediaId)
+                        case .failure(let error):
+                            print("FAILURE: \(error)")
+                }
+        }
+    }
+
+    
+    func createEpisodeAPICall(mediaId: String){
         SVProgressHUD.show()
         
         let parameters: [String: String] = [
             "showId" : showID!,
-            "mediaId" : "",
+            "mediaId" : mediaId,
             "title" : epTitleTextField.text!,
             "description" : epDescriptionTextField.text!,
             "episodeNumber" : epNumberTextField.text!,
@@ -101,10 +158,7 @@ class addEpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
     
 
     /*
@@ -117,4 +171,11 @@ class addEpViewController: UIViewController {
     }
     */
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            episodeImage.contentMode = UIViewContentMode.scaleAspectFit
+            episodeImage.image = pickedImage
+        }
+    }
+    
 }

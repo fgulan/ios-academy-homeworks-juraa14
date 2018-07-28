@@ -102,3 +102,10 @@ struct newEpisode: Codable{
         case season
     }
 }
+
+struct Media: Codable {
+    let mediaId: String
+    enum CodingKeys: String, CodingKey{
+        case mediaId
+    }
+}

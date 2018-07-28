@@ -10,6 +10,7 @@
 		5C0B724A20F7592200DCFAB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B724820F7592200DCFAB5 /* LoginViewController.swift */; };
 		5C0B724B20F7592200DCFAB5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0B724920F7592200DCFAB5 /* Login.storyboard */; };
 		5C140308210385B300C871DF /* HomeViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C140307210385B300C871DF /* HomeViewControllerCell.swift */; };
+		5C3AB4A1210CCB9C00760BF5 /* EpisodeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */; };
 		5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9056192100CB4F003A320B /* UITextField+Border.swift */; };
 		5C90561C2100CCAC003A320B /* UIButton+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */; };
 		5C90561E2100CD7D003A320B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561D2100CD7D003A320B /* User.swift */; };
@@ -30,6 +31,7 @@
 		5C0B724820F7592200DCFAB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5C0B724920F7592200DCFAB5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5C140307210385B300C871DF /* HomeViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerCell.swift; sourceTree = "<group>"; };
+		5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsViewController.swift; sourceTree = "<group>"; };
 		5C9056192100CB4F003A320B /* UITextField+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Border.swift"; sourceTree = "<group>"; };
 		5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Rounded.swift"; sourceTree = "<group>"; };
 		5C90561D2100CD7D003A320B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				5C98732021061180009F4566 /* DescriptionTableViewCell.swift */,
 				5C98732221061192009F4566 /* EpisodeTableViewCell.swift */,
 				5CAAFC5C2107A6F500630EED /* addEpViewController.swift */,
+				5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				5C98732121061180009F4566 /* DescriptionTableViewCell.swift in Sources */,
 				5CAAFC5D2107A6F500630EED /* addEpViewController.swift in Sources */,
 				5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */,
+				5C3AB4A1210CCB9C00760BF5 /* EpisodeDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

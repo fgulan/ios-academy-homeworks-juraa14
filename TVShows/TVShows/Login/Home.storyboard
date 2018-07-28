@@ -252,14 +252,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-camera" translatesAutoresizingMaskIntoConstraints="NO" id="vcb-Ml-Os3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-camera" translatesAutoresizingMaskIntoConstraints="NO" id="vcb-Ml-Os3">
                                 <rect key="frame" x="175.5" y="89" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="ff1-xR-ASU"/>
+                                    <constraint firstAttribute="height" constant="24" id="hXI-wD-xuM"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s55-mF-FeD">
                                 <rect key="frame" x="140" y="148" width="95" height="30"/>
                                 <state key="normal" title="Upload image">
                                     <color key="titleColor" red="0.85555548439999995" green="0.2438956759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="uploadImageButtonTapped:" destination="S5t-Xa-Pma" eventType="touchUpInside" id="QLF-35-V0T"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Episode title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rW7-fS-QNC">
                                 <rect key="frame" x="25" y="238" width="325" height="20"/>
@@ -292,7 +299,7 @@
                             <constraint firstItem="1BT-yw-3bv" firstAttribute="trailing" secondItem="77V-lR-hmn" secondAttribute="trailing" constant="25" id="4Oz-9m-uxG"/>
                             <constraint firstItem="rW7-fS-QNC" firstAttribute="leading" secondItem="1BT-yw-3bv" secondAttribute="leading" constant="25" id="69u-0d-rev"/>
                             <constraint firstItem="r1f-A0-7Xa" firstAttribute="leading" secondItem="1BT-yw-3bv" secondAttribute="leading" constant="25" id="CbI-GB-Zx2"/>
-                            <constraint firstItem="rW7-fS-QNC" firstAttribute="top" secondItem="s55-mF-FeD" secondAttribute="bottom" constant="60" id="EMX-Ry-EwA"/>
+                            <constraint firstItem="rW7-fS-QNC" firstAttribute="top" secondItem="s55-mF-FeD" secondAttribute="bottom" priority="100" constant="60" id="EMX-Ry-EwA"/>
                             <constraint firstItem="EIM-aq-xUB" firstAttribute="leading" secondItem="1BT-yw-3bv" secondAttribute="leading" constant="25" id="Fg3-E9-Q3t"/>
                             <constraint firstItem="s55-mF-FeD" firstAttribute="top" secondItem="vcb-Ml-Os3" secondAttribute="bottom" constant="35" id="GDv-D1-bpY"/>
                             <constraint firstItem="r1f-A0-7Xa" firstAttribute="top" secondItem="77V-lR-hmn" secondAttribute="bottom" constant="30" id="Imy-1c-nw9"/>
@@ -302,6 +309,7 @@
                             <constraint firstItem="77V-lR-hmn" firstAttribute="leading" secondItem="1BT-yw-3bv" secondAttribute="leading" constant="25" id="YVg-yQ-UPi"/>
                             <constraint firstItem="s55-mF-FeD" firstAttribute="centerX" secondItem="XbF-jo-dI5" secondAttribute="centerX" id="ZFj-7V-tsp"/>
                             <constraint firstItem="77V-lR-hmn" firstAttribute="top" secondItem="EIM-aq-xUB" secondAttribute="bottom" constant="30" id="hL7-PV-DNu"/>
+                            <constraint firstItem="1BT-yw-3bv" firstAttribute="bottom" secondItem="r1f-A0-7Xa" secondAttribute="bottom" priority="100" constant="259" id="l9f-Vd-OkH"/>
                             <constraint firstItem="1BT-yw-3bv" firstAttribute="trailing" secondItem="r1f-A0-7Xa" secondAttribute="trailing" constant="25" id="toR-p8-2xd"/>
                             <constraint firstItem="1BT-yw-3bv" firstAttribute="trailing" secondItem="EIM-aq-xUB" secondAttribute="trailing" constant="25" id="vBZ-k6-ga8"/>
                         </constraints>
@@ -312,6 +320,7 @@
                         <outlet property="epDescriptionTextField" destination="r1f-A0-7Xa" id="PI5-h7-1Kq"/>
                         <outlet property="epNumberTextField" destination="EIM-aq-xUB" id="sRE-hb-hDo"/>
                         <outlet property="epTitleTextField" destination="rW7-fS-QNC" id="YHT-8p-OOM"/>
+                        <outlet property="episodeImage" destination="vcb-Ml-Os3" id="c19-fU-BmM"/>
                         <outlet property="seasonNumberTextField" destination="77V-lR-hmn" id="cFl-u1-CKV"/>
                     </connections>
                 </viewController>
