@@ -14,7 +14,7 @@ import CodableAlamofire
 
 class LoginViewController: UIViewController {
     
-    // MARK: - Private -
+    // MARK: - variables -
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -29,6 +29,8 @@ class LoginViewController: UIViewController {
     @IBOutlet var LabelOutlet: UILabel!
     @IBOutlet var ActivityIndicatorView: UIActivityIndicatorView!
     
+    //MARK: -view controller functions-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,11 +38,6 @@ class LoginViewController: UIViewController {
         passwordTextField.setBottomBorder()
         checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: .normal)
         loginButton.roundedButton()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewDidAppear(_ animated: Bool) {

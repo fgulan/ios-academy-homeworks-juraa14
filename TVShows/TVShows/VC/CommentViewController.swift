@@ -22,6 +22,8 @@ class CommentViewController: UIViewController {
         UIImage(named: "img-placeholder-user3")!
     ]
     
+    @IBOutlet weak var commentTextField: UITextField!
+    
     @IBOutlet weak var commentContainerView: UIView!
     
     @IBOutlet weak var tableView: UITableView! {
@@ -32,6 +34,12 @@ class CommentViewController: UIViewController {
     }
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func postButtonPressed(_ sender: Any) {
+        if !(commentTextField.text?.isEmpty)! {
+            postCommentAPICall()
+        }
     }
     
     override func viewDidLoad() {
@@ -51,9 +59,9 @@ class CommentViewController: UIViewController {
         if let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            //if self.commentContainerView.frame.origin.y == 0 {
+            if self.commentContainerView.frame.origin.y == 0 {
                 self.commentContainerView.frame.origin.y -= (keyboardHeight * 1.2)
-           // }
+            }
         }
     }
     
@@ -62,9 +70,9 @@ class CommentViewController: UIViewController {
         if let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-           // if self.commentContainerView.frame.origin.y != 0 {
-            self.commentContainerView.frame.origin.y += keyboardHeight
-            //}
+            if self.commentContainerView.frame.origin.y != 0 {
+                self.commentContainerView.frame.origin.y += keyboardHeight
+            }
         }
     }
     
@@ -96,6 +104,39 @@ class CommentViewController: UIViewController {
         }
         
         // print(listOfShows.count)
+    }
+    
+    private func postCommentAPICall() {
+        SVProgressHUD.show()
+        
+        let token: String = (self.token)!
+        
+        let parameters: [String: String] = [
+            "text" : commentTextField.text!,
+            "episodeId" : episodeId
+        ]
+        
+        let headers = ["Authorization": token]
+        Alamofire
+            .request("https://api.infinum.academy/api/comments",
+                method: .post,
+                parameters: parameters,
+                encoding: JSONEncoding.default,
+                headers: headers)
+            .validate()
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+                (response: DataResponse<Comment>)  in
+                
+                SVProgressHUD.dismiss()
+                
+                        switch response.result {
+                        case .success(let comment):
+                            print(comment)
+                        case .failure(let error):
+                            print(error)
+                        }
+                
+        }
     }
     
     /*

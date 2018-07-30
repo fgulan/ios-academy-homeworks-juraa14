@@ -251,6 +251,9 @@
                                         <state key="normal" title="Post">
                                             <color key="titleColor" red="0.85555548439999995" green="0.2438956759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="postButtonPressed:" destination="QKA-uU-agY" eventType="touchUpInside" id="TZD-Ue-OFx"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -284,6 +287,7 @@
                     </view>
                     <connections>
                         <outlet property="commentContainerView" destination="gaH-At-z6B" id="2XL-yG-xGT"/>
+                        <outlet property="commentTextField" destination="Loa-h9-gvG" id="Nll-7C-Sqm"/>
                         <outlet property="tableView" destination="js6-2a-ngM" id="660-Uq-G6W"/>
                     </connections>
                 </viewController>
