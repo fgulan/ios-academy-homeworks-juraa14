@@ -113,3 +113,16 @@ struct Media: Codable {
         case id = "_id"
     }
 }
+
+struct Comment: Codable {
+    let text: String
+    let episodeId: String
+    let userEmail: String
+    let id: String
+    enum CodingKeys: String, CodingKey {
+        case text
+        case episodeId
+        case userEmail
+        case id = "_id"
+    }
+}

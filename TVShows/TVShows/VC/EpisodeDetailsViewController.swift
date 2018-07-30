@@ -14,6 +14,8 @@ class EpisodeDetailsViewController: UIViewController {
     var episodeName: String?
     var episodeNumber: String?
     var episodeDescription: String?
+    var episodeId: String?
+    var token: String?
     
     @IBOutlet weak var episodeImage: UIImageView!
     @IBOutlet weak var episodeNameLabel: UILabel!
@@ -22,6 +24,14 @@ class EpisodeDetailsViewController: UIViewController {
    
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func commentButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let commentViewController: CommentViewController = storyboard.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        commentViewController.episodeId = self.episodeId!
+        commentViewController.token = self.token
+        self.navigationController?.pushViewController(commentViewController, animated: true)
     }
     
     override func viewDidLoad() {
@@ -34,10 +44,12 @@ class EpisodeDetailsViewController: UIViewController {
         } else {
             episodeDescriptionLabel.text = "No description available!"
         }
-        
-        let url = URL(string: "https://api.infinum.academy" + imageUrl!)
-        episodeImage.kf.setImage(with: url)
-
+        if imageUrl != "" {
+            let url = URL(string: "https://api.infinum.academy" + imageUrl!)
+            episodeImage.kf.setImage(with: url)
+        } else {
+            episodeImage.image = UIImage(named: "ic-camera")
+        }
         // Do any additional setup after loading the view.
     }
 

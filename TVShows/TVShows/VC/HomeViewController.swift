@@ -57,7 +57,7 @@ class HomeViewController: UIViewController {
     }
     
 
-    fileprivate func APICall() {
+    private func APICall() {
         SVProgressHUD.show()
         
         let token: String = (loginUser?.token)!

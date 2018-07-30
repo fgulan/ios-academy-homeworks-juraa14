@@ -206,12 +206,17 @@ extension ShowDetailsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            return
+        }
         let row = indexPath.row - 1
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let episodeDetailsViewController: EpisodeDetailsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeDetailsViewController") as! EpisodeDetailsViewController
         episodeDetailsViewController.imageUrl = detailedListOfEpisodes[row].imageUrl
         episodeDetailsViewController.episodeName = detailedListOfEpisodes[row].title
         episodeDetailsViewController.episodeDescription = detailedListOfEpisodes[row].description
+        episodeDetailsViewController.episodeId = detailedListOfEpisodes[row].id
+        episodeDetailsViewController.token = self.token
         let episodeNumber = "S\(detailedListOfEpisodes[row].season) Ep\(detailedListOfEpisodes[row].episodeNumber)"
         episodeDetailsViewController.episodeNumber = episodeNumber
         self.navigationController?.pushViewController(episodeDetailsViewController, animated: true)
