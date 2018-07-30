@@ -20,6 +20,8 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var token: String?
     var showID: String?
     
+    private var pickedImage: UIImage?
+    
     let imagePicker = UIImagePickerController()
     
     weak var delegate: EpisodeAddedDelegate?
@@ -36,9 +38,6 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         present(imagePicker, animated: true, completion: nil)
         
-        if episodeImage.image != nil {
-            uploadImageOnAPI()
-        }
     }
     
     override func viewDidLoad() {
@@ -66,7 +65,11 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @objc func didSelectAdd(){
         if !(epTitleTextField.text?.isEmpty)!, !(epNumberTextField.text?.isEmpty)!, !(epDescriptionTextField.text?.isEmpty)!,
             !(seasonNumberTextField.text?.isEmpty)!{
-             createEpisodeAPICall(mediaId: "")
+            if pickedImage == nil{
+                createEpisodeAPICall(mediaId: "")
+            } else {
+                uploadImageOnAPI()
+            }
         }
     }
     
@@ -89,6 +92,7 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
             { [weak self] result in
                 switch result {
                 case .success(let uploadRequest, _, _):
+                    print("DONE WITH UPLOAD REQUEST \(uploadRequest)")
                     self?.processUploadRequest(uploadRequest)
                 case .failure(let encodingError):
                     print(encodingError)
@@ -104,7 +108,7 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
                         case .success(let media):
                             print("DECODED: \(media)")
                             print("Proceed to add episode call...")
-                            self.createEpisodeAPICall(mediaId: media.mediaId)
+                            self.createEpisodeAPICall(mediaId: media.id)
                         case .failure(let error):
                             print("FAILURE: \(error)")
                 }
@@ -143,6 +147,7 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 switch response.result {
                 case .success(let newEp):
                     //print(newEp)
+                    print("EPISODE CREATED \(newEp)")
                     self?.delegate?.didAddEpisode(title: newEp.title)
                     self?.dismiss(animated: true, completion: nil)
                 case .failure(let error):
@@ -175,6 +180,7 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             episodeImage.contentMode = UIViewContentMode.scaleAspectFit
             episodeImage.image = pickedImage
+            self.pickedImage = pickedImage
         }
     }
     

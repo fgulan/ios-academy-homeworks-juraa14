@@ -104,8 +104,12 @@ struct newEpisode: Codable{
 }
 
 struct Media: Codable {
-    let mediaId: String
-    enum CodingKeys: String, CodingKey{
-        case mediaId
+    let path: String
+    let type: String
+    let id: String
+    enum CodingKeys: String, CodingKey {
+        case path
+        case type
+        case id = "_id"
     }
 }
