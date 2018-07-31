@@ -19,10 +19,23 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     private var listOfEpisodes = [Episode]()
     private var detailedListOfEpisodes = [EpisodeDetails]()
     
+    var refreshControl: UIRefreshControl {
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self,
+                                 action: #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.gray
+        
+        return refreshControl
+    }
+    
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.dataSource = self
             tableView.delegate = self
+            tableView.addSubview(refreshControl)
         }
     }
     
@@ -51,6 +64,11 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     
     @IBAction func backButton(_ sender: Any) {
             navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getDetailsAPICall()
+        refreshControl.endRefreshing()
     }
     
     func getDetailsAPICall(){
