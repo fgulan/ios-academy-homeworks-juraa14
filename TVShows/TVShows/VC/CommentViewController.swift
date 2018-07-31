@@ -21,10 +21,13 @@ class CommentViewController: UIViewController {
         UIImage(named: "img-placeholder-user2")!,
         UIImage(named: "img-placeholder-user3")!
     ]
+    private var startingConstraintValueCV: CGFloat?
     
     @IBOutlet weak var commentTextField: UITextField!
     
     @IBOutlet weak var commentContainerView: UIView!
+    
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -49,6 +52,8 @@ class CommentViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        startingConstraintValueCV = bottomConstraint.constant
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotificationShow), name: NSNotification.Name.UIKeyboardWillShow , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotificationHide), name: NSNotification.Name.UIKeyboardWillHide , object: nil)
         // Do any additional setup after loading the view.
@@ -59,20 +64,20 @@ class CommentViewController: UIViewController {
         if let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            if self.commentContainerView.frame.origin.y == 0 {
-                self.commentContainerView.frame.origin.y -= (keyboardHeight * 1.2)
-            }
+           // if self.commentContainerView.frame.origin.y == 0 {
+                self.bottomConstraint.constant -= (keyboardHeight * 1.2)
+            //}
         }
     }
     
     @objc func handleKeyboardNotificationHide(notification: NSNotification) {
         
-        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            if self.commentContainerView.frame.origin.y != 0 {
-                self.commentContainerView.frame.origin.y += keyboardHeight
-            }
+        if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue) != nil {
+           // let keyboardRectangle = keyboardFrame.cgRectValue
+           // let keyboardHeight = keyboardRectangle.height
+           // if self.commentContainerView.frame.origin.y != 0 {
+            self.bottomConstraint.constant = startingConstraintValueCV!
+           // }
         }
     }
     
