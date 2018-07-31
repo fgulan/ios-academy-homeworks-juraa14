@@ -13,13 +13,15 @@ import SVProgressHUD
 
 class ShowDetailsViewController: UIViewController, UITableViewDelegate{
 
+    //MARK: -Properties-
+    
     var token: String?
     var showID: String = ""
     private var showDetails: ShowDetails?
     private var listOfEpisodes = [Episode]()
     private var detailedListOfEpisodes = [EpisodeDetails]()
     
-    var refreshControl: UIRefreshControl {
+    private var refreshControl: UIRefreshControl {
         
         let refreshControl = UIRefreshControl()
         
@@ -66,6 +68,7 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
             navigationController?.popViewController(animated: true)
     }
     
+    //MARK: -Functions-
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         getDetailsAPICall()
         refreshControl.endRefreshing()

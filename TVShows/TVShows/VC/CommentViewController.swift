@@ -23,6 +23,18 @@ class CommentViewController: UIViewController {
     ]
     private var startingConstraintValueCV: CGFloat?
     
+    private var refreshControl: UIRefreshControl {
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self,
+                                 action: #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.gray
+        
+        return refreshControl
+    }
+    
     @IBOutlet weak var commentTextField: UITextField!
     
     @IBOutlet weak var commentContainerView: UIView!
@@ -33,6 +45,7 @@ class CommentViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.addSubview(refreshControl)
         }
     }
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -43,6 +56,11 @@ class CommentViewController: UIViewController {
         if !(commentTextField.text?.isEmpty)! {
             postCommentAPICall()
         }
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getCommentsAPICall()
+        refreshControl.endRefreshing()
     }
     
     override func viewDidLoad() {
