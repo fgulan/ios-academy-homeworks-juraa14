@@ -161,6 +161,9 @@ class LoginViewController: UIViewController {
                     homeViewController.loginUser = self.loginToken
                 case .failure(let error):
                     let alertController = UIAlertController(title:"Alert", message: error as? String, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
+                        return
+                    }))
                     self.present(alertController, animated: true, completion: nil)
                 }
         }
