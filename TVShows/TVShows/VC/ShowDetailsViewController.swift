@@ -20,7 +20,6 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     
     private var showDetails: ShowDetails?
     private var listOfEpisodes = [Episode]()
-    private var detailedListOfEpisodes = [EpisodeDetails]()
     
     private var refreshControl: UIRefreshControl {
         
@@ -80,22 +79,20 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                      encoding: JSONEncoding.default,
                      headers: headers)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { [weak self]
                 (response: DataResponse<ShowDetails>) in
                 
+                guard let `self` = self else { return }
                 SVProgressHUD.dismiss()
-                    { [weak self] in
                 switch response.result {
                 case .success(let details):
-                    self?.showDetails = details
-                    //print(self.showDetails!)
-                    self?.getListOfEpisodesAPICall()
-                    self?.tableView.reloadData()
+                    self.showDetails = details
+                    self.getListOfEpisodesAPICall()
+                    self.tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
-                }
-        }
+            }
     }
     
     func setupWith(token: String, showId: String) {
@@ -123,55 +120,12 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                 switch response.result {
                 case .success(let episodes):
                     self.listOfEpisodes = episodes
-                    //print(self.listOfEpisodes)
-                    for i in 0..<self.listOfEpisodes.count{
-                        self.getDetailedEpisodesAPICall(episode: self.listOfEpisodes[i])
-                    }
+                    self.tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
         }
     }
-    
-    func getDetailedEpisodesAPICall(episode: Episode){
-        SVProgressHUD.show()
-        
-        guard let token = token else {return }
-
-        let headers = ["Authorization": token]
-        Alamofire
-            .request("https://api.infinum.academy/api/episodes/\(episode.id)",
-                method: .get,
-                encoding: JSONEncoding.default,
-                headers: headers)
-            .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
-                (response: DataResponse<EpisodeDetails>) in
-                
-                SVProgressHUD.dismiss()
-                    {[weak self] in
-                switch response.result {
-                case .success(let episodeDetails):
-                    self?.detailedListOfEpisodes.append(episodeDetails)
-                    //print(self.detailedListOfEpisodes)
-                    self?.tableView.reloadData()
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ShowDetailsViewController: UITableViewDataSource{
@@ -182,7 +136,7 @@ extension ShowDetailsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showDetails != nil {
-            return 1 + detailedListOfEpisodes.count
+            return 1 + listOfEpisodes.count
         } else {
             return 0
         }
@@ -213,16 +167,13 @@ extension ShowDetailsViewController: UITableViewDataSource{
                                                                            for: indexPath) as! EpisodeTableViewCell
             
             let item: episodeCellItems = episodeCellItems(
-                episodeNumber: "S\(detailedListOfEpisodes[row].season) Ep\(detailedListOfEpisodes[row].episodeNumber)",
-                episodeName: detailedListOfEpisodes[row].title
+                episodeNumber: "S\(listOfEpisodes[row].season) Ep\(listOfEpisodes[row].episodeNumber)",
+                episodeName: listOfEpisodes[row].title
             )
             
             cell.configureCell(with: item)
             return cell
         }
-        
-        
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -232,16 +183,14 @@ extension ShowDetailsViewController: UITableViewDataSource{
         let row = indexPath.row - 1
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let episodeDetailsViewController: EpisodeDetailsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeDetailsViewController") as! EpisodeDetailsViewController
-        episodeDetailsViewController.imageUrl = detailedListOfEpisodes[row].imageUrl
-        episodeDetailsViewController.episodeName = detailedListOfEpisodes[row].title
-        episodeDetailsViewController.episodeDescription = detailedListOfEpisodes[row].description
-        episodeDetailsViewController.episodeId = detailedListOfEpisodes[row].id
+        episodeDetailsViewController.imageUrl = listOfEpisodes[row].imageUrl
+        episodeDetailsViewController.episodeName = listOfEpisodes[row].title
+        episodeDetailsViewController.episodeDescription = listOfEpisodes[row].description
+        episodeDetailsViewController.episodeId = listOfEpisodes[row].id
         episodeDetailsViewController.token = self.token
-        let episodeNumber = "S\(detailedListOfEpisodes[row].season) Ep\(detailedListOfEpisodes[row].episodeNumber)"
+        let episodeNumber = "S\(listOfEpisodes[row].season) Ep\(listOfEpisodes[row].episodeNumber)"
         episodeDetailsViewController.episodeNumber = episodeNumber
-        self.navigationController?.pushViewController(episodeDetailsViewController, animated: true)
-        
-        // print(listOfShows[indexPath.row], loginUser!)
+        navigationController?.pushViewController(episodeDetailsViewController, animated: true)
     }
     
 }
