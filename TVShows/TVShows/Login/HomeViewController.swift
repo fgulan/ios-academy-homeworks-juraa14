@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import Alamofire
 import CodableAlamofire
+import Kingfisher
 
 class HomeViewController: UIViewController {
 
@@ -18,7 +19,7 @@ class HomeViewController: UIViewController {
     
     
     @IBOutlet weak var homeTableView: UITableView!{
-        didSet{
+        didSet {
             homeTableView.dataSource = self
             homeTableView.delegate = self
         }
@@ -28,7 +29,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "Shows"
+        
         navigationItem.setHidesBackButton(true, animated: true)
+        
+        let logoutItem = UIBarButtonItem.init(image: UIImage(named: "ic-logout"),
+                                              style: .plain,
+                                              target: self,
+                                              action:
+            #selector(_logoutActionHandler))
+        navigationItem.leftBarButtonItem = logoutItem
+        
         APICall()
         //print(listOfShows.count)
         homeTableView.reloadData()
@@ -36,9 +46,14 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    @objc private func _logoutActionHandler() {
+        UserDefaults.standard.removeObject(forKey: "username")
+        UserDefaults.standard.removeObject(forKey: "password")
+        navigationController?.popViewController(animated: true)
     }
     
 
@@ -55,7 +70,7 @@ class HomeViewController: UIViewController {
                      headers: headers)
             .validate()
             .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
-                (response: DataResponse<[Show]>) in
+                (response: DataResponse<[Show]>)  in
                 
                 SVProgressHUD.dismiss()
                 
@@ -105,10 +120,27 @@ extension HomeViewController: UITableViewDataSource{
         let item: HomeViewCellItem = HomeViewCellItem(
             title: listOfShows[row].title
         )
-        
+        let imageUrl = listOfShows[row].imageUrl
+        let url = URL(string: "https://api.infinum.academy" + imageUrl)
+        cell.showImage.kf.setImage(with: url)
         cell.configureCell(with: item)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let showDetailsViewController: ShowDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
+        showDetailsViewController.showID = listOfShows[indexPath.row].id
+        showDetailsViewController.token = (loginUser?.token)!
+        self.navigationController?.pushViewController(showDetailsViewController, animated: true)
+        
+       // print(listOfShows[indexPath.row], loginUser!)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
 }

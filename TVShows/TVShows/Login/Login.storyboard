@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nRA-jd-PJc">
-                                        <rect key="frame" x="0.0" y="-32" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login-logo" translatesAutoresizingMaskIntoConstraints="NO" id="DWL-vU-pSD">
-                                                <rect key="frame" x="151" y="60" width="75" height="80"/>
+                                                <rect key="frame" x="150.5" y="60" width="75" height="80"/>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Hj-uh-bDp">
                                                 <rect key="frame" x="10" y="267" width="355" height="17"/>
@@ -61,13 +62,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EV-9G-UdH">
-                                                <rect key="frame" x="180" y="424" width="16" height="21"/>
+                                                <rect key="frame" x="179.5" y="424" width="16" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAd-H5-5CB">
-                                                <rect key="frame" x="125" y="460" width="126" height="30"/>
+                                                <rect key="frame" x="124" y="460" width="126" height="30"/>
                                                 <state key="normal" title="Create an account">
                                                     <color key="titleColor" red="1" green="0.45882352941176469" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -100,7 +101,7 @@
                                             <constraint firstItem="GAd-H5-5CB" firstAttribute="top" secondItem="1EV-9G-UdH" secondAttribute="bottom" constant="15" id="ex3-cK-PpZ"/>
                                             <constraint firstItem="HrM-cv-gYC" firstAttribute="centerX" secondItem="nRA-jd-PJc" secondAttribute="centerX" id="fCl-jq-DuX"/>
                                             <constraint firstItem="1Hj-uh-bDp" firstAttribute="top" secondItem="HrM-cv-gYC" secondAttribute="bottom" constant="30" id="iBx-Gj-tgy"/>
-                                            <constraint firstItem="D9V-It-Qcw" firstAttribute="bottom" secondItem="GAd-H5-5CB" secondAttribute="bottom" constant="177" id="lAF-i0-NRh"/>
+                                            <constraint firstItem="D9V-It-Qcw" firstAttribute="bottom" secondItem="GAd-H5-5CB" secondAttribute="bottom" constant="10" id="lAF-i0-NRh"/>
                                             <constraint firstItem="1Hj-uh-bDp" firstAttribute="trailing" secondItem="iwy-8v-wS3" secondAttribute="trailing" id="mfI-gC-F9r"/>
                                             <constraint firstItem="HrM-cv-gYC" firstAttribute="top" secondItem="DWL-vU-pSD" secondAttribute="bottom" constant="80" id="mv0-y6-t0Y"/>
                                             <constraint firstItem="DWL-vU-pSD" firstAttribute="centerX" secondItem="1EV-9G-UdH" secondAttribute="centerX" id="zkT-fa-PXX"/>
@@ -110,11 +111,11 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="nRA-jd-PJc" firstAttribute="top" secondItem="EpZ-HW-WWq" secondAttribute="top" id="3jp-nb-4KS"/>
                                     <constraint firstAttribute="trailing" secondItem="nRA-jd-PJc" secondAttribute="trailing" id="6yC-G0-vcP"/>
                                     <constraint firstItem="nRA-jd-PJc" firstAttribute="leading" secondItem="EpZ-HW-WWq" secondAttribute="leading" id="FjL-Z2-KQf"/>
-                                    <constraint firstItem="nRA-jd-PJc" firstAttribute="centerX" secondItem="EpZ-HW-WWq" secondAttribute="centerX" id="Zuy-nr-A50"/>
-                                    <constraint firstItem="nRA-jd-PJc" firstAttribute="centerY" secondItem="EpZ-HW-WWq" secondAttribute="centerY" id="ahR-Do-O9Z"/>
-                                    <constraint firstAttribute="bottom" secondItem="nRA-jd-PJc" secondAttribute="bottom" constant="-10" id="mAs-13-dmh"/>
+                                    <constraint firstItem="nRA-jd-PJc" firstAttribute="width" secondItem="EpZ-HW-WWq" secondAttribute="width" id="j2h-P5-hnW"/>
+                                    <constraint firstAttribute="bottom" secondItem="nRA-jd-PJc" secondAttribute="bottom" id="mAs-13-dmh"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -133,6 +134,7 @@
                         <outlet property="loginButton" destination="iwy-8v-wS3" id="bNq-6C-fg1"/>
                         <outlet property="passwordTextField" destination="1Hj-uh-bDp" id="PXW-o8-K5C"/>
                         <outlet property="usernameTextField" destination="HrM-cv-gYC" id="aBx-ZC-nuS"/>
+                        <segue destination="Az8-VU-1fy" kind="show" identifier="LoginToHomeSegue" id="cc1-ai-gZC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x1C-AK-sq4" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         usernameTextField.setBottomBorder()
         passwordTextField.setBottomBorder()
-        checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: UIControlState.normal)
+        checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: .normal)
         loginButton.roundedButton()
     }
 
@@ -43,6 +43,12 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if let username = UserDefaults.standard.object(forKey: "username") as? String, let password = UserDefaults.standard.object(forKey: "password") as? String {
+            loginAPICall(email: username, password: password)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -57,18 +63,34 @@ class LoginViewController: UIViewController {
         
         if isCheckBoxClicked == true{
             isCheckBoxClicked = false
-            checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: UIControlState.normal)
+            checkBox.setImage(UIImage(named: "ic-checkbox-empty"), for: .normal)
         }
         else{
             isCheckBoxClicked = true
-            checkBox.setImage(UIImage(named: "ic-checkbox-filled"), for: UIControlState.normal)
+            checkBox.setImage(UIImage(named: "ic-checkbox-filled"), for: .normal)
         }
     }
     
-    @IBAction func LoginButtonAction(_ sender: Any) {
+    @IBAction func LoginButtonAction(_ sender: UIButton) {
         if let email = usernameTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty{
+            if isCheckBoxClicked == true {
+                UserDefaults.standard.set(email, forKey: "username")
+                UserDefaults.standard.set(password, forKey: "password")
+            }
             loginAPICall(email: email, password: password)
+        } else if (usernameTextField.text?.isEmpty)! || (passwordTextField.text?.isEmpty)! {
+            let pulse1 = CASpringAnimation(keyPath: "transform.scale")
+            pulse1.duration = 0.6
+            pulse1.fromValue = 1.0
+            pulse1.toValue = 1.12
+            pulse1.autoreverses = true
+            pulse1.repeatCount = 1
+            pulse1.initialVelocity = 0.5
+            pulse1.damping = 0.8
+            
+            sender.layer.add(pulse1, forKey: nil)
         }
+        
         
         //let storyboard = UIStoryboard(name: "Login", bundle: nil)
         //let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
