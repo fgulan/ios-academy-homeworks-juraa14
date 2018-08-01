@@ -56,12 +56,17 @@ struct Episode: Codable{
     let id: String
     let title: String
     let description: String
+    let episodeNumber: String
+    let season: String
+
     let imageUrl: String
     enum CodingKeys: String, CodingKey{
         case id = "_id"
         case title
         case description
         case imageUrl
+        case episodeNumber
+        case season
     }
 }
 
@@ -100,5 +105,29 @@ struct newEpisode: Codable{
         case description
         case episodeNumber
         case season
+    }
+}
+
+struct Media: Codable {
+    let path: String
+    let type: String
+    let id: String
+    enum CodingKeys: String, CodingKey {
+        case path
+        case type
+        case id = "_id"
+    }
+}
+
+struct Comment: Codable {
+    let text: String
+    let episodeId: String
+    let userEmail: String
+    let id: String
+    enum CodingKeys: String, CodingKey {
+        case text
+        case episodeId
+        case userEmail
+        case id = "_id"
     }
 }

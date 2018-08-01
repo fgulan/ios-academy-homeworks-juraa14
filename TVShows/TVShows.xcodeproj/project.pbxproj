@@ -10,9 +10,12 @@
 		5C0B724A20F7592200DCFAB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B724820F7592200DCFAB5 /* LoginViewController.swift */; };
 		5C0B724B20F7592200DCFAB5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0B724920F7592200DCFAB5 /* Login.storyboard */; };
 		5C140308210385B300C871DF /* HomeViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C140307210385B300C871DF /* HomeViewControllerCell.swift */; };
+		5C3AB4A1210CCB9C00760BF5 /* EpisodeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */; };
+		5C3AB4A3210F50FB00760BF5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AB4A2210F50FB00760BF5 /* CommentViewController.swift */; };
+		5C3AB4A5210F521700760BF5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AB4A4210F521700760BF5 /* CommentTableViewCell.swift */; };
 		5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9056192100CB4F003A320B /* UITextField+Border.swift */; };
 		5C90561C2100CCAC003A320B /* UIButton+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */; };
-		5C90561E2100CD7D003A320B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561D2100CD7D003A320B /* User.swift */; };
+		5C90561E2100CD7D003A320B /* CodableStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90561D2100CD7D003A320B /* CodableStructures.swift */; };
 		5C98731F2105ED70009F4566 /* ShowDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */; };
 		5C98732121061180009F4566 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98732021061180009F4566 /* DescriptionTableViewCell.swift */; };
 		5C98732321061192009F4566 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C98732221061192009F4566 /* EpisodeTableViewCell.swift */; };
@@ -30,9 +33,12 @@
 		5C0B724820F7592200DCFAB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5C0B724920F7592200DCFAB5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5C140307210385B300C871DF /* HomeViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerCell.swift; sourceTree = "<group>"; };
+		5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsViewController.swift; sourceTree = "<group>"; };
+		5C3AB4A2210F50FB00760BF5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		5C3AB4A4210F521700760BF5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		5C9056192100CB4F003A320B /* UITextField+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Border.swift"; sourceTree = "<group>"; };
 		5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Rounded.swift"; sourceTree = "<group>"; };
-		5C90561D2100CD7D003A320B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5C90561D2100CD7D003A320B /* CodableStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStructures.swift; sourceTree = "<group>"; };
 		5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewController.swift; sourceTree = "<group>"; };
 		5C98732021061180009F4566 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		5C98732221061192009F4566 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
@@ -60,21 +66,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5CA006EA210F837B0092C621 /* CustomAppearance */ = {
+			isa = PBXGroup;
+			children = (
+				5C9056192100CB4F003A320B /* UITextField+Border.swift */,
+				5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */,
+			);
+			path = CustomAppearance;
+			sourceTree = "<group>";
+		};
+		5CA006EB210F83D10092C621 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5C3AB4A4210F521700760BF5 /* CommentTableViewCell.swift */,
+				5C98732221061192009F4566 /* EpisodeTableViewCell.swift */,
+				5C140307210385B300C871DF /* HomeViewControllerCell.swift */,
+				5C98732021061180009F4566 /* DescriptionTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5CA006ED210F84240092C621 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				5C3AB4A2210F50FB00760BF5 /* CommentViewController.swift */,
+				5C3AB4A0210CCB9C00760BF5 /* EpisodeDetailsViewController.swift */,
+				5CAAFC5C2107A6F500630EED /* addEpViewController.swift */,
+				5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */,
+				5CBACE8220FC9E28005D9420 /* HomeViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		5CA006EE210F84890092C621 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				5C90561D2100CD7D003A320B /* CodableStructures.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
 		5CEA4CB320F00A84007D412C /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				5C0B724920F7592200DCFAB5 /* Login.storyboard */,
 				5C0B724820F7592200DCFAB5 /* LoginViewController.swift */,
 				5CBACE8020FC9DBB005D9420 /* Home.storyboard */,
-				5CBACE8220FC9E28005D9420 /* HomeViewController.swift */,
-				5C9056192100CB4F003A320B /* UITextField+Border.swift */,
-				5C90561B2100CCAC003A320B /* UIButton+Rounded.swift */,
-				5C90561D2100CD7D003A320B /* User.swift */,
-				5C140307210385B300C871DF /* HomeViewControllerCell.swift */,
-				5C98731E2105ED70009F4566 /* ShowDetailsViewController.swift */,
-				5C98732021061180009F4566 /* DescriptionTableViewCell.swift */,
-				5C98732221061192009F4566 /* EpisodeTableViewCell.swift */,
-				5CAAFC5C2107A6F500630EED /* addEpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -101,6 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				5CEA4CB320F00A84007D412C /* Login */,
+				5CA006ED210F84240092C621 /* VC */,
+				5CA006EB210F83D10092C621 /* Cells */,
+				5CA006EA210F837B0092C621 /* CustomAppearance */,
+				5CA006EE210F84890092C621 /* Structs */,
 				5CECFDD220EE6F4400E3EA49 /* AppDelegate.swift */,
 				5CECFDD920EE6F4600E3EA49 /* Assets.xcassets */,
 				5CECFDDB20EE6F4600E3EA49 /* LaunchScreen.storyboard */,
@@ -245,17 +286,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3AB4A3210F50FB00760BF5 /* CommentViewController.swift in Sources */,
 				5C98731F2105ED70009F4566 /* ShowDetailsViewController.swift in Sources */,
 				5C0B724A20F7592200DCFAB5 /* LoginViewController.swift in Sources */,
 				5C90561C2100CCAC003A320B /* UIButton+Rounded.swift in Sources */,
 				5C98732321061192009F4566 /* EpisodeTableViewCell.swift in Sources */,
-				5C90561E2100CD7D003A320B /* User.swift in Sources */,
+				5C90561E2100CD7D003A320B /* CodableStructures.swift in Sources */,
 				5C140308210385B300C871DF /* HomeViewControllerCell.swift in Sources */,
 				5CECFDD320EE6F4400E3EA49 /* AppDelegate.swift in Sources */,
 				5CBACE8320FC9E28005D9420 /* HomeViewController.swift in Sources */,
 				5C98732121061180009F4566 /* DescriptionTableViewCell.swift in Sources */,
 				5CAAFC5D2107A6F500630EED /* addEpViewController.swift in Sources */,
+				5C3AB4A5210F521700760BF5 /* CommentTableViewCell.swift in Sources */,
 				5C90561A2100CB4F003A320B /* UITextField+Border.swift in Sources */,
+				5C3AB4A1210CCB9C00760BF5 /* EpisodeDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

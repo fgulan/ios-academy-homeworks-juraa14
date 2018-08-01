@@ -45,7 +45,11 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func configureCell(with item: descriptionCellItems){
         showTitle.text = item.title
+        if !item.description.isEmpty{
         showDescription.text = item.description
+        } else {
+            showDescription.text = "No description available!"
+        }
         showDescription.sizeToFit()
         showDescription.adjustsFontSizeToFitWidth = true
         numberOfEpisodes.text = String(item.numberOfEpisodes)

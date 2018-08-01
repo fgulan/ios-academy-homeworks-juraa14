@@ -40,13 +40,11 @@ class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = logoutItem
         
         APICall()
-        //print(listOfShows.count)
         homeTableView.reloadData()
-        
-        // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
@@ -57,7 +55,7 @@ class HomeViewController: UIViewController {
     }
     
 
-    fileprivate func APICall() {
+    private func APICall() {
         SVProgressHUD.show()
         
         let token: String = (loginUser?.token)!
@@ -69,34 +67,21 @@ class HomeViewController: UIViewController {
                      encoding: JSONEncoding.default,
                      headers: headers)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { [weak self]
                 (response: DataResponse<[Show]>)  in
                 
-                SVProgressHUD.dismiss()
+                guard let `self` = self else { return }
                 
+                SVProgressHUD.dismiss()
                 switch response.result {
                 case .success(let shows):
                     self.listOfShows = shows
                     self.homeTableView.reloadData()
-                    //print(self.listOfShows.count)
                 case .failure(let error):
                     print(error)
                 }
         }
-        
-       // print(listOfShows.count)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension HomeViewController: UITableViewDataSource{
@@ -114,10 +99,10 @@ extension HomeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         
-        let cell: HomeViewControllerCell = tableView.dequeueReusableCell(withIdentifier: "HomeViewControllerCell",
-                                                                         for: indexPath) as! HomeViewControllerCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewControllerCell",
+                                                 for: indexPath) as! HomeViewControllerCell
         
-        let item: HomeViewCellItem = HomeViewCellItem(
+        let item = HomeViewCellItem(
             title: listOfShows[row].title
         )
         let imageUrl = listOfShows[row].imageUrl
@@ -132,8 +117,7 @@ extension HomeViewController: UITableViewDataSource{
         
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let showDetailsViewController: ShowDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
-        showDetailsViewController.showID = listOfShows[indexPath.row].id
-        showDetailsViewController.token = (loginUser?.token)!
+        showDetailsViewController.setupWith(token: (loginUser?.token)!, showId: listOfShows[indexPath.row].id)
         self.navigationController?.pushViewController(showDetailsViewController, animated: true)
         
        // print(listOfShows[indexPath.row], loginUser!)

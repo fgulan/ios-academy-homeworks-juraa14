@@ -13,16 +13,32 @@ import SVProgressHUD
 
 class ShowDetailsViewController: UIViewController, UITableViewDelegate{
 
-    var token: String?
-    var showID: String = ""
+    //MARK: -Properties-
+    
+    private var token: String!
+    private var showID: String!
+    
     private var showDetails: ShowDetails?
     private var listOfEpisodes = [Episode]()
-    private var detailedListOfEpisodes = [EpisodeDetails]()
     
-    @IBOutlet weak var tableView: UITableView!{
-        didSet{
+    private var refreshControl: UIRefreshControl {
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self,
+                                 action: #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.gray
+        
+        return refreshControl
+    }
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
             tableView.dataSource = self
             tableView.delegate = self
+            tableView.refreshControl = refreshControl
+            tableView.rowHeight = UITableViewAutomaticDimension
         }
     }
     
@@ -41,55 +57,57 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         getDetailsAPICall()
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     @IBAction func backButton(_ sender: Any) {
-            navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: -Functions-
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getDetailsAPICall()
+        refreshControl.endRefreshing()
     }
     
     func getDetailsAPICall(){
         SVProgressHUD.show()
-        
-        let token = (self.token)!
-        
+        guard let token = token, let showId = showID else {return }
         let headers = ["Authorization": token]
         Alamofire
-            .request("https://api.infinum.academy/api/shows/\(showID)",
+            .request("https://api.infinum.academy/api/shows/\(showId)",
                      method: .get,
                      encoding: JSONEncoding.default,
                      headers: headers)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { [weak self]
                 (response: DataResponse<ShowDetails>) in
                 
+                guard let `self` = self else { return }
                 SVProgressHUD.dismiss()
-                
                 switch response.result {
                 case .success(let details):
                     self.showDetails = details
-                    //print(self.showDetails!)
                     self.getListOfEpisodesAPICall()
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
-        }
+            }
+    }
+    
+    func setupWith(token: String, showId: String) {
+        self.token = token
+        self.showID = showId
     }
     
     func getListOfEpisodesAPICall(){
         SVProgressHUD.show()
         
-        let token = (self.token)!
-        
+        guard let token = token, let showId = showID else {return }
+
         let headers = ["Authorization": token]
         Alamofire
-            .request("https://api.infinum.academy/api/shows/\(showID)/episodes",
+            .request("https://api.infinum.academy/api/shows/\(showId)/episodes",
                 method: .get,
                 encoding: JSONEncoding.default,
                 headers: headers)
@@ -102,54 +120,12 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                 switch response.result {
                 case .success(let episodes):
                     self.listOfEpisodes = episodes
-                    //print(self.listOfEpisodes)
-                    for i in 0..<self.listOfEpisodes.count{
-                        self.getDetailedEpisodesAPICall(episode: self.listOfEpisodes[i])
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-        }
-    }
-    
-    func getDetailedEpisodesAPICall(episode: Episode){
-        SVProgressHUD.show()
-        
-        let token = (self.token)!
-        
-        let headers = ["Authorization": token]
-        Alamofire
-            .request("https://api.infinum.academy/api/episodes/\(episode.id)",
-                method: .get,
-                encoding: JSONEncoding.default,
-                headers: headers)
-            .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
-                (response: DataResponse<EpisodeDetails>) in
-                
-                SVProgressHUD.dismiss()
-                
-                switch response.result {
-                case .success(let episodeDetails):
-                    self.detailedListOfEpisodes.append(episodeDetails)
-                    //print(self.detailedListOfEpisodes)
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ShowDetailsViewController: UITableViewDataSource{
@@ -160,7 +136,7 @@ extension ShowDetailsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showDetails != nil {
-            return 1 + detailedListOfEpisodes.count
+            return 1 + listOfEpisodes.count
         } else {
             return 0
         }
@@ -191,18 +167,31 @@ extension ShowDetailsViewController: UITableViewDataSource{
                                                                            for: indexPath) as! EpisodeTableViewCell
             
             let item: episodeCellItems = episodeCellItems(
-                episodeNumber: "S\(detailedListOfEpisodes[row].season) Ep\(detailedListOfEpisodes[row].episodeNumber)",
-                episodeName: detailedListOfEpisodes[row].title
+                episodeNumber: "S\(listOfEpisodes[row].season) Ep\(listOfEpisodes[row].episodeNumber)",
+                episodeName: listOfEpisodes[row].title
             )
             
             cell.configureCell(with: item)
             return cell
         }
-        
-        
-        
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            return
+        }
+        let row = indexPath.row - 1
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let episodeDetailsViewController: EpisodeDetailsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeDetailsViewController") as! EpisodeDetailsViewController
+        episodeDetailsViewController.imageUrl = listOfEpisodes[row].imageUrl
+        episodeDetailsViewController.episodeName = listOfEpisodes[row].title
+        episodeDetailsViewController.episodeDescription = listOfEpisodes[row].description
+        episodeDetailsViewController.episodeId = listOfEpisodes[row].id
+        episodeDetailsViewController.token = self.token
+        let episodeNumber = "S\(listOfEpisodes[row].season) Ep\(listOfEpisodes[row].episodeNumber)"
+        episodeDetailsViewController.episodeNumber = episodeNumber
+        navigationController?.pushViewController(episodeDetailsViewController, animated: true)
+    }
     
 }
 
