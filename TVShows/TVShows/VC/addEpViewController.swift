@@ -63,6 +63,7 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @objc func didSelectAdd(){
+        
         if !(epTitleTextField.text?.isEmpty)!, !(epNumberTextField.text?.isEmpty)!, !(epDescriptionTextField.text?.isEmpty)!,
             !(seasonNumberTextField.text?.isEmpty)!{
             if pickedImage == nil{
@@ -119,11 +120,19 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func createEpisodeAPICall(mediaId: String){
         SVProgressHUD.show()
         
+        guard
+            let showID = showID,
+            let title = epTitleTextField.text,
+            let description = epDescriptionTextField.text
+        else {
+            return
+        }
+        
         let parameters: [String: String] = [
-            "showId" : showID!,
+            "showId" : showID,
             "mediaId" : mediaId,
-            "title" : epTitleTextField.text!,
-            "description" : epDescriptionTextField.text!,
+            "title" : title,
+            "description" : description,
             "episodeNumber" : epNumberTextField.text!,
             "season" : seasonNumberTextField.text!
         ]
@@ -138,43 +147,29 @@ class addEpViewController: UIViewController, UIImagePickerControllerDelegate, UI
                      encoding: JSONEncoding.default,
                      headers: headers)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
+            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) { [weak self]
                 (response: DataResponse<newEpisode>) in
                 
+                guard let `self` = self else { return }
                 
                 SVProgressHUD.dismiss()
-                    {[weak self] in
                 switch response.result {
                 case .success(let newEp):
                     //print(newEp)
                     print("EPISODE CREATED \(newEp)")
-                    self?.delegate?.didAddEpisode(title: newEp.title)
-                    self?.dismiss(animated: true, completion: nil)
+                    self.delegate?.didAddEpisode(title: newEp.title)
+                    self.dismiss(animated: true, completion: nil)
                 case .failure(let error):
                     print(error)
                     let alertController = UIAlertController(title:"Error adding episode", message: error as? String, preferredStyle: .alert)
-                    self?.present(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
-            }
         }
     }
     
     @objc func didSelectCancel() {
         dismiss(animated: true, completion: nil)
     }
-
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {

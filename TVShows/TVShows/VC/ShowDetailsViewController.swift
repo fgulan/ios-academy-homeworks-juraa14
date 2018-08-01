@@ -15,8 +15,9 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
 
     //MARK: -Properties-
     
-    var token: String?
-    var showID: String = ""
+    private var token: String!
+    private var showID: String!
+    
     private var showDetails: ShowDetails?
     private var listOfEpisodes = [Episode]()
     private var detailedListOfEpisodes = [EpisodeDetails]()
@@ -33,11 +34,12 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
         return refreshControl
     }
     
-    @IBOutlet weak var tableView: UITableView!{
-        didSet{
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
             tableView.dataSource = self
             tableView.delegate = self
-            tableView.addSubview(refreshControl)
+            tableView.refreshControl = refreshControl
+            tableView.rowHeight = UITableViewAutomaticDimension
         }
     }
     
@@ -56,16 +58,10 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         getDetailsAPICall()
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     @IBAction func backButton(_ sender: Any) {
-            navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: -Functions-
@@ -102,6 +98,11 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
                 }
                 }
         }
+    }
+    
+    func setupWith(token: String, showId: String) {
+        self.token = token
+        self.showID = showId
     }
     
     func getListOfEpisodesAPICall(){

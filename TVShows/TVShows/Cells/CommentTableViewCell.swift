@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct commentCellItems{
-    let id: String?
+struct CommentCellItems {
+    
     let text: String
     let userEmail: String
     let image: UIImage?
@@ -41,7 +41,7 @@ class CommentTableViewCell: UITableViewCell {
         userImage.image = nil
     }
     
-    func configureCell(with item: commentCellItems){
+    func configureCell(with item: CommentCellItems) {
         userEmailLabel.text = item.userEmail
         commentLabel.text = item.text
         userImage.image = item.image

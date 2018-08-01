@@ -45,7 +45,7 @@ class CommentViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.addSubview(refreshControl)
+            tableView.refreshControl = refreshControl
         }
     }
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -72,20 +72,26 @@ class CommentViewController: UIViewController {
         
         startingConstraintValueCV = bottomConstraint.constant
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotificationShow), name: NSNotification.Name.UIKeyboardWillShow , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotificationHide), name: NSNotification.Name.UIKeyboardWillHide , object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotificationShow),
+                                               name: .UIKeyboardWillShow ,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotificationHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
         // Do any additional setup after loading the view.
     }
 
     @objc func handleKeyboardNotificationShow(notification: NSNotification) {
-        
-        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-           // if self.commentContainerView.frame.origin.y == 0 {
-                self.bottomConstraint.constant -= (keyboardHeight * 1.2)
-            //}
+        guard let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
         }
+        
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        self.bottomConstraint.constant -= keyboardHeight
+        tableView.contentInset.bottom = keyboardHeight + 70
     }
     
     @objc func handleKeyboardNotificationHide(notification: NSNotification) {
@@ -95,14 +101,15 @@ class CommentViewController: UIViewController {
            // let keyboardHeight = keyboardRectangle.height
            // if self.commentContainerView.frame.origin.y != 0 {
             self.bottomConstraint.constant = startingConstraintValueCV!
+            tableView.contentInset = .zero
            // }
         }
     }
     
     private func getCommentsAPICall() {
-        SVProgressHUD.show()
+        guard let token = token else { return }
         
-        let token: String = (self.token)!
+        SVProgressHUD.show()
         
         let headers = ["Authorization": token]
         Alamofire
@@ -111,22 +118,20 @@ class CommentViewController: UIViewController {
                      encoding: JSONEncoding.default,
                      headers: headers)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder()) {
-                (response: DataResponse<[Comment]>)  in
+            .responseDecodableObject(keyPath: "data") { [weak self] (response: DataResponse<[Comment]>)  in
                 
+                guard let `self` = self else { return }
                 SVProgressHUD.dismiss()
-                    { [weak self] in
-                        switch response.result {
-                        case .success(let comments):
-                            self?.comments = comments
-                            self?.tableView.reloadData()
-                        case .failure(let error):
-                            print(error)
-                        }
+                
+                switch response.result {
+                case .success(let comments):
+                    self.comments = comments
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error)
                 }
+
         }
-        
-        // print(listOfShows.count)
     }
     
     private func postCommentAPICall() {
@@ -152,26 +157,15 @@ class CommentViewController: UIViewController {
                 
                 SVProgressHUD.dismiss()
                 
-                        switch response.result {
-                        case .success(let comment):
-                            print(comment)
-                        case .failure(let error):
-                            print(error)
-                        }
+                switch response.result {
+                case .success(let comment):
+                    print(comment)
+                case .failure(let error):
+                    print(error)
+                }
                 
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension CommentViewController: UITableViewDataSource {
@@ -195,8 +189,7 @@ extension CommentViewController: UITableViewDataSource {
         let cell: CommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell",
                                                                        for: indexPath) as! CommentTableViewCell
         
-        let item: commentCellItems = commentCellItems (
-            id: nil,
+        let item = CommentCellItems(
             text: comments[row].text,
             userEmail: comments[row].userEmail,
             image: userImages[row % 3]

@@ -17,29 +17,18 @@ class EpisodeDetailsViewController: UIViewController {
     var episodeId: String?
     var token: String?
     
+    
     @IBOutlet weak var episodeImage: UIImageView!
     @IBOutlet weak var episodeNameLabel: UILabel!
     @IBOutlet weak var episodeNumberLabel: UILabel!
     @IBOutlet weak var episodeDescriptionLabel: UILabel!
-   
-    @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func commentButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        let commentViewController: CommentViewController = storyboard.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
-        commentViewController.episodeId = self.episodeId!
-        commentViewController.token = self.token
-        self.navigationController?.pushViewController(commentViewController, animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         episodeNameLabel.text = episodeName
         episodeNumberLabel.text = episodeNumber
-        if episodeDescription != ""{
+        if episodeDescription != "" {
             episodeDescriptionLabel.text = episodeDescription
         } else {
             episodeDescriptionLabel.text = "No description available!"
@@ -52,21 +41,16 @@ class EpisodeDetailsViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func commentButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let commentViewController: CommentViewController = storyboard.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        commentViewController.episodeId = self.episodeId!
+        commentViewController.token = self.token
+        self.navigationController?.pushViewController(commentViewController, animated: true)
     }
-    */
-
 }
