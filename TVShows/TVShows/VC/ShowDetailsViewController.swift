@@ -72,12 +72,10 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     
     func getDetailsAPICall(){
         SVProgressHUD.show()
-        
-        let token = (self.token)!
-        
+        guard let token = token, let showId = showID else {return }
         let headers = ["Authorization": token]
         Alamofire
-            .request("https://api.infinum.academy/api/shows/\(showID)",
+            .request("https://api.infinum.academy/api/shows/\(showId)",
                      method: .get,
                      encoding: JSONEncoding.default,
                      headers: headers)
@@ -108,11 +106,11 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     func getListOfEpisodesAPICall(){
         SVProgressHUD.show()
         
-        let token = (self.token)!
-        
+        guard let token = token, let showId = showID else {return }
+
         let headers = ["Authorization": token]
         Alamofire
-            .request("https://api.infinum.academy/api/shows/\(showID)/episodes",
+            .request("https://api.infinum.academy/api/shows/\(showId)/episodes",
                 method: .get,
                 encoding: JSONEncoding.default,
                 headers: headers)
@@ -138,8 +136,8 @@ class ShowDetailsViewController: UIViewController, UITableViewDelegate{
     func getDetailedEpisodesAPICall(episode: Episode){
         SVProgressHUD.show()
         
-        let token = (self.token)!
-        
+        guard let token = token else {return }
+
         let headers = ["Authorization": token]
         Alamofire
             .request("https://api.infinum.academy/api/episodes/\(episode.id)",
